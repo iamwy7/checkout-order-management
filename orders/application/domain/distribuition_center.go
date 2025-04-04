@@ -1,7 +1,8 @@
 package domain
 
 type DistributionCenter struct {
-	Id   string // UUID
-	Name string // CD1, CD2 etc...
-	Zone Zone
+	ID       string
+	Name     string
+	Zone     string
+	Quantity int
 }

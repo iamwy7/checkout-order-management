@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/iamwy7/meli-challenge/orders/application/domain"
 )
 
 type DistributionCenterAdapter struct {
 	BaseURL string
 }
 
-func (dca *DistributionCenterAdapter) GetDCsByItemId(itemID string) (*DistributionCenterResponse, error) {
+func (dca *DistributionCenterAdapter) GetDCsByItemId(itemID string) (*[]domain.DistributionCenter, error) {
 	path := fmt.Sprintf("%s/distributioncenters?itemId=%s", dca.BaseURL, itemID)
 
 	// Prep request with path
@@ -42,10 +44,12 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemID string) (*Distributi
 		log.Printf("failed to decode response: %v", err.Error())
 		return nil, ErrIntegrationDecodeJson
 	}
+
 	// Check if the response is empty (that definetly means that the itemID is not valid or something else)
 	if len(dcResp.DistributionCenters) == 0 {
 		log.Printf("no distribution centers found for itemID: %v", itemID)
 		return nil, ErrIntegrationDCsEmpty
 	}
-	return &dcResp, nil
+	domainDCs := MapResponseToDomain(&dcResp)
+	return domainDCs, nil
 }
