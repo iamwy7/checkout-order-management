@@ -4,26 +4,31 @@
     {
       "id": "f7a2b3d4-6e5f-1d9a-8b0c-2a3d4e5b7f1c",
       "name": "CD10",
+      "zone": "S2",
       "quantity": 234
     },
     {
       "id": "a2b3d4e5-6f1a-9d8b-0c4e-2a3d5b7f1c6b",
       "name": "CD11",
+      "zone": "S2",
       "quantity": 112
     },
     {
       "id": "e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c",
       "name": "CD15",
+      "zone": "N2",
       "quantity": 654
     },
     {
       "id": "c7f2d3e4-6a9f-1d8b-0c2a-5e4d3b2a7f6c",
       "name": "CD19",
+      "zone": "E1",
       "quantity": 367
     },
     {
       "id": "c7f2d3e4-6a9f-1d8b-0c2a-4d3e5b2a7f6c",
       "name": "CD25",
+      "zone": "C1",
       "quantity": 233
     }
   ]

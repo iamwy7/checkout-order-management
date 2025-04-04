@@ -4,81 +4,97 @@
     {
       "id": "66af3398-fd04-471f-aefc-a2280e7d02d3",
       "name": "CD1",
+      "zone": "S1",
       "quantity": 23
     },
     {
       "id": "7e12a3dc-a3f4-4375-95c8-7cc9b04b6211",
       "name": "CD2",
+      "zone": "S1",
       "quantity": 15
     },
     {
       "id": "082f22b4-2017-40c2-87e7-abc30b335da9",
       "name": "CD3",
+      "zone": "W1",
       "quantity": 132
     },
     {
       "id": "d2a7a3f0-45d9-4e19-8c5c-0c5b6e39fb7f",
       "name": "CD4",
+      "zone": "W1",
       "quantity": 432
     },
     {
       "id": "a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f",
       "name": "CD5",
+      "zone": "C1",
       "quantity": 234
     },
     {
       "id": "b8d4a6c3-5e2f-4d3a-8b1c-2a4d3e5c6b7a",
       "name": "CD6",
+      "zone": "C1",
       "quantity": 789
     },
     {
       "id": "c3e2d5a7-4b6f-1d8c-9a0b-3e4f5d2b6c7a",
       "name": "CD7",
+      "zone": "E1",
       "quantity": 567
     },
     {
       "id": "d4e5a7b2-3c6f-1d9a-8b0c-2a3d4e5b7c6a",
       "name": "CD8",
+      "zone": "E1",
       "quantity": 321
     },
     {
       "id": "e5a7b2c3-6d4f-1d9a-8b0c-7f1a2e3d5b4c",
       "name": "CD9",
+      "zone": "E2",
       "quantity": 654
     },
     {
       "id": "f7a2b3d4-6e5f-1d9a-8b0c-2a3d4e5b7f1c",
       "name": "CD10",
+      "zone": "S2",
       "quantity": 432
     },
     {
       "id": "a2b3d4e5-6f1a-9d8b-0c4e-2a3d5b7f1c6b",
       "name": "CD11",
+      "zone": "S2",
       "quantity": 876
     },
     {
       "id": "b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c",
       "name": "CD12",
+      "zone": "N1",
       "quantity": 543
     },
     {
       "id": "c2e3d4f5-7a6f-1c9d-8b0c-4d5e2a3b7f6d",
       "name": "CD13",
+      "zone": "N1",
       "quantity": 324
     },
     {
       "id": "d3e4f5a7-6c9f-1d8b-0c2a-5e3d4b2a7f6c",
       "name": "CD14",
+      "zone": "N2",
       "quantity": 657
     },
     {
       "id": "e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c",
       "name": "CD15",
+      "zone": "N2",
       "quantity": 789
     },
     {
       "id": "f5a7d2e3-6c9f-1d8b-0c2a-4d5e3b2a7f6c",
       "name": "CD16",
+      "zone": "E1",
       "quantity": 123
     },
     {
@@ -89,41 +105,49 @@
     {
       "id": "b7e2d3f4-6c9f-1d8b-0c2a-3d5e4b2a7f6c",
       "name": "CD18",
+      "zone": "E2",
       "quantity": 678
     },
     {
       "id": "c7f2d3e4-6a9f-1d8b-0c2a-5e4d3b2a7f6c",
       "name": "CD19",
+      "zone": "E1",
       "quantity": 234
     },
     {
       "id": "d7f2e3a4-6c9f-1d8b-0c2a-4d3e5b2a7f6c",
       "name": "CD20",
+      "zone": "W1",
       "quantity": 789
     },
     {
       "id": "e7f2a3d4-6c9f-1d8b-0c2a-3d4e5b2a7f6c",
       "name": "CD21",
+      "zone": "W1",
       "quantity": 456
     },
     {
       "id": "f7a2d3e4-6c9f-1d8b-0c2a-5e4d3b7f2a6c",
       "name": "CD22",
+      "zone": "C1",
       "quantity": 678
     },
     {
       "id": "a7d2e3f4-6c9f-1d8b-0c2a-3d5e4b2a7f6c",
       "name": "CD23",
+      "zone": "N1",
       "quantity": 234
     },
     {
       "id": "b7e2d3f4-6c9f-1d8b-0c2a-5e4d3b2a7f6c",
       "name": "CD24",
+      "zone": "W1",
       "quantity": 789
     },
     {
       "id": "c7f2d3e4-6a9f-1d8b-0c2a-4d3e5b2a7f6c",
       "name": "CD25",
+      "zone": "C1",
       "quantity": 456
     }
   ]

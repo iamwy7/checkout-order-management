@@ -77,14 +77,14 @@ Esse microservice é o inicio da cadeia, é onde criamos um pedido e eles nos re
 ### Todo 
 - [ ] Criar POST `/orders`
 - [ ] Criar GET  `/orders/{order_id}`
-- [ ] Criar wiremock do distribution_centers
+- [x] Criar wiremock do distribution_centers
 - [ ] Criar um client http com go routines para o `/distributioncenters?itemId=123`
-- [ ] Usar Hexagonal Arch
+- [x] Usar Hexagonal Arch
 - [ ] Documentar a Api com Swagger
-- [ ] Infra do código (docker, makefile etc) 
+- [-] Infra do código (docker, makefile etc) 
 - [ ] Criar testes unitarios
 - [ ] Criar testes de integração (Insomnia e se der tempo Serenity+Cucumber ou Robot)
-- [ ] Criar o start da aplicação pelo cli usando o Cobra
+- [-] Criar o start da aplicação pelo cli usando o Cobra
 - [ ] Fazer o setup da suite de qualidade com o Sonarqube
 - [ ] Usar os linters do Golang na pipeline de cada projeto
 
