@@ -78,7 +78,7 @@ Esse microservice é o inicio da cadeia, é onde criamos um pedido e eles nos re
 - [ ] Criar POST `/orders`
 - [ ] Criar GET  `/orders/{order_id}`
 - [x] Criar wiremock do distribution_centers
-- [ ] Criar um client http com go routines para o `/distributioncenters?itemId=123`
+- [-] Criar um service que use o client http com go routines para o `/distributioncenters?itemId=123`
 - [x] Usar Hexagonal Arch
 - [ ] Documentar a Api com Swagger
 - [-] Infra do código (docker, makefile etc) 
