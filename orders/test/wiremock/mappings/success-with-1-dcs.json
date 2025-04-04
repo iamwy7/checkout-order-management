@@ -1,0 +1,14 @@
+{
+  "priority": 1,
+  "request": {
+    "method": "GET",
+    "url": "/distributioncenters?itemId=0f99276b-aa53-44f6-8bb6-5b4ededc9615"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "success-with-1-dcs.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
