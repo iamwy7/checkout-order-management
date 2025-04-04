@@ -1,0 +1,86 @@
+type: collection.insomnia.rest/5.0
+name: meli-challenge
+meta:
+  id: wrk_3acf67b8407a48d69154e4bcc473aa0c
+  created: 1743737473876
+  modified: 1743738339082
+  description: top
+collection:
+  - name: meli_challenge
+    meta:
+      id: fld_d86927f91b1c487abb979ad8f657e9bc
+      created: 1743548744013
+      modified: 1743738339080
+      sortKey: -1743548744013
+    children:
+      - name: distribution_centers
+        meta:
+          id: fld_f6d13faebbb5454e8858e7eb46e24246
+          created: 1743733268616
+          modified: 1743738339081
+          sortKey: -1743733268616
+        children:
+          - url: http://127.0.0.1:8081/distributioncenters?itemId={{ _.itemId }}
+            name: /distribuitioncenters
+            meta:
+              id: req_5eada486dfcf4774a42f02b42fa16d0e
+              created: 1743730564994
+              modified: 1743738339081
+              isPrivate: false
+              sortKey: -1743733299215
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/10.3.1
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_951c76d034bb5e0268cd039e56ac15005f242bc1
+    created: 1743738339114
+    modified: 1743738339114
+environments:
+  name: Base Environment
+  meta:
+    id: env_0473b57c176c45acb870a2620577d256
+    created: 1743548620632
+    modified: 1743738339078
+    isPrivate: false
+  subEnvironments:
+    - name: 1 CDs por itemId
+      meta:
+        id: env_d7b4b3a790ed4d1db8da3e24d824e29e
+        created: 1743732976071
+        modified: 1743738339079
+        isPrivate: false
+        sortKey: 1743732976072
+      data:
+        itemId: 0f99276b-aa53-44f6-8bb6-5b4ededc9615
+      color: "#ff8080"
+    - name: 5 CDs por itemId
+      meta:
+        id: env_a3e5fd1d4a1245cead4e3191365e1480
+        created: 1743733007289
+        modified: 1743738339079
+        isPrivate: false
+        sortKey: 1743732979974.125
+      data:
+        itemId: c60ce040-e2e4-4828-b959-a500996816b8
+      color: "#5f93c4"
+    - name: 25 CDs por itemId
+      meta:
+        id: env_e4e992b005a84de789f551f8c05fb80a
+        created: 1743733027342
+        modified: 1743738339080
+        isPrivate: false
+        sortKey: 1743733027342
+      data:
+        itemId: f51f1901-16f5-4af4-b080-b1a14ad2b4fc
+      color: "#90f773"
