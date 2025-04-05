@@ -7,14 +7,19 @@ import (
 	"net/http"
 
 	"github.com/iamwy7/meli-challenge/orders/application/domain"
+	ports "github.com/iamwy7/meli-challenge/orders/application/ports/outputs/http_client"
 )
 
 type DistributionCenterAdapter struct {
 	BaseURL string
 }
 
-func (dca *DistributionCenterAdapter) GetDCsByItemId(itemID string) (*[]domain.DistributionCenter, error) {
-	path := fmt.Sprintf("%s/distributioncenters?itemId=%s", dca.BaseURL, itemID)
+func NewDistributionCenterAdapterFactory(baseUrl string) ports.DistributionCentersRepository {
+	return &DistributionCenterAdapter{BaseURL: baseUrl}
+}
+
+func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.DistributionCenter, error) {
+	path := fmt.Sprintf("%s/distributioncenters?itemId=%s", dca.BaseURL, itemId)
 
 	// Prep request with path
 	httpReq, err := http.NewRequest("GET", path, nil)
@@ -34,7 +39,7 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemID string) (*[]domain.D
 	// Close when done
 	defer httpResp.Body.Close()
 	if httpResp.StatusCode != http.StatusOK {
-		log.Printf("failed to get distribution centers by id: %v with status code: %d", itemID, httpResp.StatusCode)
+		log.Printf("failed to get distribution centers by id: %v with status code: %d", itemId, httpResp.StatusCode)
 		return nil, ErrIntegrationClient
 	}
 
@@ -45,9 +50,9 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemID string) (*[]domain.D
 		return nil, ErrIntegrationDecodeJson
 	}
 
-	// Check if the response is empty (that definetly means that the itemID is not valid or something else)
+	// Check if the response is empty (that definetly means that the ItemId is not valid or something else)
 	if len(dcResp.DistributionCenters) == 0 {
-		log.Printf("no distribution centers found for itemID: %v", itemID)
+		log.Printf("no distribution centers found for itemId: %v", itemId)
 		return nil, ErrIntegrationDCsEmpty
 	}
 	domainDCs := MapResponseToDomain(&dcResp)

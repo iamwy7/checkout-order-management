@@ -1,28 +1,40 @@
-version: '3'
 services:
-  golang:
-    build: .
-    ports:
-      - "8080:8080"
-    volumes:
-      - .:/app
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-  golang-mysql:
+  mysql:
     image: mysql:8.0.30-debian
-    #container_name: test-mysql
+    restart: always
     environment:
+      MYSQL_DATABASE: orders_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test_db
-      MYSQL_USER: test_user
-      MYSQL_PASSWORD: test_password
-    # ports:
-    #   - "3307:3306"
+    ports:
+     - "3306:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 3
+    networks:
+      - mysql_network
     volumes:
-      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./.docker/mysql-init:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+
+  mysql-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "9090:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - mysql_network
+    depends_on:
+      - mysql
+
+networks:
+  mysql_network:
+
+volumes:
+  db_data:

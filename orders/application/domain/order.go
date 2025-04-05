@@ -1,18 +1,15 @@
 package domain
 
-import "errors"
+type OrderInterface interface {
+	Validate() error
+}
 
-type Zone string
+type OrderStatus string
 
 const (
-	North1 Zone = "N1"
-	North2 Zone = "N2"
-	East1  Zone = "E1"
-	East2  Zone = "E2"
-	West   Zone = "W1"
-	Center Zone = "C1"
-	South1 Zone = "S1"
-	South2 Zone = "S2"
+	PENDING  OrderStatus = "PENDING"
+	APPROVED OrderStatus = "APPROVED"
+	CANCELED OrderStatus = "CANCELED"
 )
 
 type Order struct {
@@ -20,20 +17,35 @@ type Order struct {
 	Products []Product
 	Zone     Zone
 	State    string
+	Status   OrderStatus
+}
+
+func NewOrder(id string, products []Product, zone Zone, state string, status OrderStatus) (*Order, error) {
+	order := &Order{
+		Id:       id,
+		Products: products,
+		Zone:     zone,
+		State:    state,
+		Status:   status,
+	}
+	if err := order.Validate(); err != nil {
+		return nil, err
+	}
+	return order, nil
 }
 
 func (o *Order) Validate() error {
-	if len(o.Products) == 0 {
-		return errors.New("order must have some products to proccess")
+	if len(o.Products) == 0 {	
+		return ErrOrderWithoutProducts
 	}
 	if len(o.Products) > 100 {
-		return errors.New("order have too many items, 100 is the limit")
+		return ErrOrderWithTooMuchProducts
 	}
 	if o.Zone == "" {
-		return errors.New("order zone is required")
+		return ErrOrderZoneRequired
 	}
 	if len(o.Zone) != 2 {
-		return errors.New("order zone must be 2 characters long")
+		return ErrOrderInvalidZone
 	}
 	return nil
 }

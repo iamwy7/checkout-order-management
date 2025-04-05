@@ -5,5 +5,5 @@ import (
 )
 
 type DistributionCentersRepository interface {
-	GetDCsByItemId(itemID string) (*[]domain.DistributionCenter, error)
+	GetDCsByItemId(itemId string) (*[]domain.DistributionCenter, error)
 }
