@@ -1,11 +1,14 @@
 package domain
 
+import "github.com/google/uuid"
+
 type ProductInterface interface {
 	Validate() error
 }
 
 type Product struct {
-	Id                 string //UUID
+	Id                 string //UUID occurence of the product
+	CatalogProductId   string //UUID
 	Name               string
 	Price              float64
 	Quantity           int
@@ -28,9 +31,10 @@ func (p *Product) Validate() error {
 	return nil
 }
 
-func NewProduct(id string, name string, price float64, quantity int, dc DistributionCenter) (*Product, error) {
+func NewProduct(catalogId string, name string, price float64, quantity int, dc DistributionCenter) (*Product, error) {
 	product := &Product{
-		Id:                 id,
+		Id:                 uuid.NewString(),
+		CatalogProductId:   catalogId,
 		Name:               name,
 		Price:              price,
 		Quantity:           quantity,

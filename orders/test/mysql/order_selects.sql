@@ -15,6 +15,7 @@ WHERE
 -- Get all information about all products of an order and the distribution center of each product
 SELECT 
     p.prod_id AS product_id,
+    p.prod_prod_catalog_id AS product_catalog_id,
     p.prod_name AS product_name,
     p.prod_price AS product_price,
     op.op_ordered_prod_quant AS ordered_prod_quant,

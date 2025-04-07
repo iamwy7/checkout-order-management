@@ -22,29 +22,29 @@ func NewMySqlOrderAdapterFactory(db *sql.DB) (out_ports.OrderRepository, error) 
 func (oa *OrderAdapter) CreateAggregatedOrder(order domain.Order) error {
 	err := oa.CreateOrder(order)
 	if err != nil {
-		log.Println("error creating order", err)
+		log.Println("error creating order:", err)
 		return err
 	}
 	for _, product := range order.Products {
 		err := oa.CreateProduct(product)
 		if err != nil {
-			log.Println("error creating product", err)
+			log.Println("error creating product:", err)
 			return err
 		}
 		err = oa.CreateDistributuionCenter(product.DistributionCenter)
 		if err != nil {
-			log.Println("error creating dc", err)
+			log.Println("error creating dc:", err)
 			return err
 		}
 		err = oa.LinkProductToOrder(order.Id, product.Id, product.Quantity)
 
 		if err != nil {
-			log.Println("error linking product to order", err)
+			log.Println("error linking product to order:", err)
 			return err
 		}
 		err = oa.LinkDistributionCenterToProduct(product.Id, product.DistributionCenter.Id)
 		if err != nil {
-			log.Println("error linking dc to product", err)
+			log.Println("error linking dc to product:", err)
 			return err
 		}
 	}
@@ -62,10 +62,10 @@ func (oa *OrderAdapter) CreateOrder(order domain.Order) error {
 
 func (oa *OrderAdapter) CreateProduct(product domain.Product) error {
 	query := `
-		INSERT INTO products (prod_id, prod_name, prod_price)
-		VALUES (?, ?, ?)
+		INSERT INTO products (prod_id, prod_prod_catalog_id, prod_name, prod_price)
+		VALUES (?, ?, ?, ?)
 	`
-	_, err := oa.db.Exec(query, product.Id, product.Name, product.Price)
+	_, err := oa.db.Exec(query, product.Id, product.CatalogProductId, product.Name, product.Price)
 	return err
 }
 
@@ -73,6 +73,7 @@ func (oa *OrderAdapter) CreateDistributuionCenter(dc domain.DistributionCenter) 
 	query := `
 		INSERT INTO distribution_centers (dist_cen_id, dist_cen_name, dist_cen_zone, dist_cen_state, dist_cen_status)
 		VALUES (?, ?, ?, ?, ?)
+		ON DUPLICATE KEY UPDATE dist_cen_name = VALUES(dist_cen_name), dist_cen_zone = VALUES(dist_cen_zone), dist_cen_state = VALUES(dist_cen_state), dist_cen_status = VALUES(dist_cen_status);
 	`
 	_, err := oa.db.Exec(query, dc.Id, dc.Name, dc.Zone, dc.State, dc.Status)
 	return err
@@ -100,6 +101,9 @@ func (oa *OrderAdapter) GetAggregatedOrderById(orderId string) (*domain.Order, e
 	products, err := oa.GetProductsByOrderId(orderId)
 	if err != nil {
 		return nil, err
+	}
+	if len(*products) == 0 {
+		return nil, domain.ErrOrderInvalidId
 	}
 	order, err := oa.GetOrderById(orderId)
 	if err != nil {

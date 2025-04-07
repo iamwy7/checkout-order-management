@@ -14,7 +14,7 @@ func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDTO {
 			Zone: string(product.DistributionCenter.Zone),
 		}
 		productDto := dtos.ProductOutputDTO{
-			Id:                 product.Id,
+			Id:                 product.CatalogProductId,
 			Name:               product.Name,
 			Price:              product.Price,
 			Quantity:           product.Quantity,

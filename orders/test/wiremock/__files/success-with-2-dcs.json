@@ -1,0 +1,21 @@
+{
+  "itemId": "c60ce040-e2e4-4828-b959-a500996816b8",
+  "distributionCenters": [
+    {
+      "id": "c7f2d3e4-6a9f-1d8b-0c2a-5e4d3b2a7f6c",
+      "name": "CD19",
+      "zone": "E1",
+      "state": "SP",
+      "status": "ACTIVE",
+      "quantity": 445
+    },
+    {
+      "id": "c7f2d3e4-6a9f-1d8b-0c2a-4d3e5b2a7f6c",
+      "name": "CD25",
+      "zone": "C1",
+      "state": "SP",
+      "status": "ACTIVE",
+      "quantity": 223
+    }
+  ]
+}

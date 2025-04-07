@@ -2,8 +2,12 @@ package api_handlers
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
+	"log"
 	"net/http"
 
+	"github.com/iamwy7/meli-challenge/orders/application/domain"
 	"github.com/iamwy7/meli-challenge/orders/application/usecase"
 	"github.com/iamwy7/meli-challenge/orders/application/usecase/dtos"
 )
@@ -26,7 +30,7 @@ func NewOrderHandler(
 func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	var input dtos.CreateOrderInputDTO
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-		h.writeErrorResponse(w, "Invalid data to create an order", http.StatusBadRequest)
+		h.writeErrorResponse(w, "invalid data to create an order", http.StatusBadRequest)
 		return
 	}
 	output, err := h.createOrderUseCase.Execute(input)
@@ -42,11 +46,11 @@ func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 // @Param orderId path string true "Order ID"
 func (h *OrdersHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
 	orderId := r.PathValue("orderId")
-	if orderId == "" {
-		h.writeErrorResponse(w, "Missing orderId", http.StatusBadRequest)
+	output, err := h.getOrderUseCase.Execute(orderId)
+	if errors.Is(err, domain.ErrOrderInvalidId) {
+		h.writeErrorResponse(w, fmt.Sprintf("%v for orderId:%v", err.Error(), orderId), http.StatusNotFound)
 		return
 	}
-	output, err := h.getOrderUseCase.Execute(orderId)
 	if err != nil {
 		h.writeErrorResponse(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -57,6 +61,7 @@ func (h *OrdersHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
 
 // writeErrorResponse writes an error response in JSON format
 func (h *OrdersHandler) writeErrorResponse(w http.ResponseWriter, message string, statusCode int) {
+	log.Printf("handler error: %v", message)
 	w.WriteHeader(statusCode)
 	json.NewEncoder(w).Encode(ErrorResponse{Message: message})
 }

@@ -4,7 +4,7 @@ import "errors"
 
 var (
 	// order errors
-	ErrOrderInvalidId           = errors.New("order doenst exists")
+	ErrOrderInvalidId           = errors.New("order doenst exist")
 	ErrOrderWithoutProducts     = errors.New("order must have some products to proccess")
 	ErrOrderWithTooMuchProducts = errors.New("order have too many items, 100 is the limit")
 	ErrOrderZoneRequired        = errors.New("order zone is invalid at the moment")

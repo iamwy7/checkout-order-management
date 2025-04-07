@@ -16,18 +16,19 @@ CREATE TABLE IF NOT EXISTS orders (
 
 
 CREATE TABLE IF NOT EXISTS products (
-    prod_id CHAR(36) NOT NULL PRIMARY KEY,  -- UUID
+    prod_id CHAR(36) NOT NULL PRIMARY KEY,  -- Occurrence product ID
+    prod_prod_catalog_id CHAR(36) NOT NULL, -- Common product ID
     prod_name VARCHAR(100) NOT NULL,                
     prod_price FLOAT NOT NULL
 );
 
 
 CREATE TABLE IF NOT EXISTS distribution_centers (
-    dist_cen_id CHAR(36) NOT NULL PRIMARY KEY,   -- UUID
+    dist_cen_id CHAR(36) NOT NULL PRIMARY KEY,    -- UUID
     dist_cen_name CHAR(5) NOT NULL,             
     dist_cen_zone CHAR(2) NOT NULL,             
     dist_cen_state VARCHAR(2) NOT NULL,           
-    dist_cen_status VARCHAR(10) NOT NULL -- distribution center operational status. Can be ACTIVE and INACTIVE
+    dist_cen_status VARCHAR(10) NOT NULL          -- distribution center operational status. Can be ACTIVE and INACTIVE
 );
 
 
@@ -55,11 +56,12 @@ INSERT INTO orders (order_id, order_zone, order_state, order_status, order_prod_
   ;
 
 
-INSERT INTO products (prod_id, prod_name, prod_price) VALUES
-  ('0f99276b-aa53-44f6-8bb6-5b4ededc9615', 'Perfume Masculino', 175.00),
-  ('c60ce040-e2e4-4828-b959-a500996816b8', 'Camisa Social', 200.00),
-  ('f51f1901-16f5-4af4-b080-b1a14ad2b4fc', 'Kit Festa facil de montar', 150.90),
-  ('8ebb99aa-cae8-48b8-8499-ec215b4f1edc', 'PS5 versao digital', 2499.99)
+INSERT INTO products (prod_id, prod_prod_catalog_id, prod_name, prod_price) VALUES
+  ('0cb0a0d0-a815-41c6-9801-d4704c381cee','0f99276b-aa53-44f6-8bb6-5b4ededc9615', 'Perfume Masculino', 175.00),
+  ('987313b0-c694-49b5-9fee-55e0e75234b4','c60ce040-e2e4-4828-b959-a500996816b8', 'Camisa Social', 200.00),
+  ('25067e02-4de5-40fd-aafc-3f47bb2abe61','f51f1901-16f5-4af4-b080-b1a14ad2b4fc', 'Kit Festa facil de montar', 150.90),
+  ('3ed31420-bd65-418d-81ac-84dd1f05fc78','8ebb99aa-cae8-48b8-8499-ec215b4f1edc', 'PS5 versao digital', 2499.99),
+  ('8d01d7bb-fe91-43a1-a5da-be408f32d952','8ebb99aa-cae8-48b8-8499-ec215b4f1edc', 'PS5 versao digital Black Friday', 999.99)
   ;
 
 INSERT INTO distribution_centers (dist_cen_id, dist_cen_name, dist_cen_zone, dist_cen_state, dist_cen_status) VALUES
@@ -70,10 +72,10 @@ INSERT INTO distribution_centers (dist_cen_id, dist_cen_name, dist_cen_zone, dis
 
 
 INSERT INTO order_products (op_order_id, op_prod_id, op_ordered_prod_quant) VALUES
-  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', '0f99276b-aa53-44f6-8bb6-5b4ededc9615', 1),
-  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', 'c60ce040-e2e4-4828-b959-a500996816b8', 2),
-  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', 'f51f1901-16f5-4af4-b080-b1a14ad2b4fc', 3),
-  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', '8ebb99aa-cae8-48b8-8499-ec215b4f1edc', 1)
+  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', '0cb0a0d0-a815-41c6-9801-d4704c381cee', 1),
+  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', '987313b0-c694-49b5-9fee-55e0e75234b4', 2),
+  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', '25067e02-4de5-40fd-aafc-3f47bb2abe61', 3),
+  ('8c8f5d8f-bcec-478c-8d56-5c8390d0f938', '8d01d7bb-fe91-43a1-a5da-be408f32d952', 1)
 ;
 
 INSERT INTO products_distribuition_centers(pdc_prod_id, pdc_dist_cen_id) VALUES
