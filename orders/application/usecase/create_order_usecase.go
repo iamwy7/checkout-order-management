@@ -30,15 +30,15 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 		if err != nil {
 			return nil, err
 		}
-		chosenDc, err := uc.getDCWithHighestProductQuantity(dcs)
+		chosenDC, err := uc.getDCWithHighestProductQuantity(dcs)
 		if err != nil {
 			return nil, err
 		}
 
-		if product.Quantity > chosenDc.ProductQuantity {
+		if product.Quantity > chosenDC.ProductQuantity {
 			return nil, domain.ErrProductQuantityExceeded
 		}
-		p, err := domain.NewProduct(product.Id, product.Name, product.Price, product.Quantity, *chosenDc)
+		p, err := domain.NewProduct(product.Id, product.Name, product.Price, product.Quantity, *chosenDC)
 		if err != nil {
 			return nil, err
 		}
