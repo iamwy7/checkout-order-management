@@ -3,8 +3,10 @@ package db_repository
 import (
 	"database/sql"
 	"errors"
+	"log"
+	"time"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" // Database driver
 	"github.com/iamwy7/meli-challenge/orders/application/domain"
 	out_ports "github.com/iamwy7/meli-challenge/orders/application/ports/outputs"
 )
@@ -155,7 +157,7 @@ func (oa *OrderAdapter) GetOrderById(orderId string) (*domain.Order, error) {
 		o.order_id = ?
 `
 	rows, err := oa.db.Query(query, orderId)
-	if err != nil {
+	if err != nil || !rows.Next() {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, domain.ErrOrderInvalidId
 		}
@@ -164,9 +166,24 @@ func (oa *OrderAdapter) GetOrderById(orderId string) (*domain.Order, error) {
 	defer rows.Close()
 
 	var order domain.Order
-	err = rows.Scan(&order.Id, &order.Zone, &order.State, &order.Status, &order.ProductsCount, &order.CreatedAt, &order.UpdatedAt)
+	var createdAt, updatedAt string // Temporary variables to hold the raw date values
+	err = rows.Scan(&order.Id, &order.Zone, &order.State, &order.Status, &order.ProductsCount, &createdAt, &updatedAt)
 	if err != nil {
-		return nil, err
+		log.Printf("%v: %v", domain.ErrUnexpectedError, err)
+		return nil, domain.ErrUnexpectedError
+	}
+
+	// Parse the raw date strings into time.Time
+	order.CreatedAt, err = time.Parse("2006-01-02 15:04:05", createdAt)
+	if err != nil {
+		log.Printf("failed to parse order_created_at: %v", err)
+		return nil, domain.ErrUnexpectedError
+	}
+
+	order.UpdatedAt, err = time.Parse("2006-01-02 15:04:05", updatedAt)
+	if err != nil {
+		log.Printf("failed to parse order_updated_at: %v", err)
+		return nil, domain.ErrUnexpectedError
 	}
 
 	return &order, nil

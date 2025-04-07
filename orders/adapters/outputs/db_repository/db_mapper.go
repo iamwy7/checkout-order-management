@@ -7,12 +7,12 @@ import (
 
 func MapOrderDtoToOrder(orderDto OrderDto) (*domain.Order, error) {
 	orderProducts := make([]domain.Product, len(orderDto.Products))
-	for _, productDto := range orderDto.Products {
+	for i, productDto := range orderDto.Products {
 		product, err := MapProductDtoToProduct(productDto)
 		if err != nil {
 			return nil, err
 		}
-		orderProducts = append(orderProducts, *product)
+		orderProducts[i] = *product
 	}
 
 	order := &domain.Order{

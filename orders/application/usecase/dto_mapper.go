@@ -7,7 +7,7 @@ import (
 
 func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDTO {
 	productsDto := make([]dtos.ProductOutputDTO, len(order.Products))
-	for _, product := range order.Products {
+	for i, product := range order.Products {
 		dc := dtos.DistributionCenterOutputDTO{
 			Id:   product.DistributionCenter.Id,
 			Name: product.DistributionCenter.Name,
@@ -20,7 +20,7 @@ func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDTO {
 			Quantity:           product.Quantity,
 			DistributionCenter: dc,
 		}
-		productsDto = append(productsDto, productDto)
+		productsDto[i] = productDto
 	}
 
 	orderDto := &dtos.CreatedOrderOutputDTO{

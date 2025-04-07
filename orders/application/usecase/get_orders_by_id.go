@@ -9,7 +9,7 @@ type GetOrderUseCase struct {
 	order_repo out_ports.OrderRepository
 }
 
-func NewGetOrderUseCase(order_repo out_ports.OrderRepository, dc_repo out_ports.DistributionCentersRepository) *GetOrderUseCase {
+func NewGetOrderUseCase(order_repo out_ports.OrderRepository) *GetOrderUseCase {
 	return &GetOrderUseCase{
 		order_repo: order_repo}
 }

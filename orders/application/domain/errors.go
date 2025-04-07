@@ -26,4 +26,6 @@ var (
 	ErrDCZoneRequired    = errors.New("distribution center zone is required")
 	ErrDCInvalidZone     = errors.New("distribution center zone is invalid")
 	ErrDCInvalidQuantity = errors.New("distribution center product quantity must be greater than 0")
+
+	ErrUnexpectedError = errors.New("unexpected error occurred")
 )
