@@ -54,6 +54,9 @@ var apiCmd = &cobra.Command{
 		dbUser := viper.GetString("DB_USER")
 		dbPass := viper.GetString("DB_PASSWORD")
 		dbName := viper.GetString("DB_NAME")
+		if dbHost == "" || dbPort == "" || dbUser == "" || dbPass == "" || dbName == "" {
+			log.Fatal("one or more missing env vars, please check application documentation")
+		}
 		dbConnection, err := sql.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", dbUser, dbPass, dbHost, dbPort, dbName))
 		if err != nil {
 			log.Fatal(err)
@@ -63,7 +66,9 @@ var apiCmd = &cobra.Command{
 		// Create the repositories
 		dcUrl := viper.GetString("DC_URL")
 		dcPort := viper.GetString("DC_PORT")
-
+		if dcUrl == "" || dcPort == "" {
+			log.Fatal("one or more missing env vars, please check application documentation")
+		}
 		dcRepo := http_client.NewDistributionCenterAdapterFactory(fmt.Sprintf("http://%v:%v", dcUrl, dcPort))
 		ordeRepo, err := db_repository.NewMySqlOrderAdapterFactory(dbConnection)
 		if err != nil {
@@ -123,6 +128,17 @@ var apiCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(apiCmd)
+
+	viper.AutomaticEnv() // Automatically read environment variables
+
+	// Define environment variable bindings
+	viper.BindEnv("DB_HOST")
+	viper.BindEnv("DB_PORT")
+	viper.BindEnv("DB_USER")
+	viper.BindEnv("DB_PASSWORD")
+	viper.BindEnv("DB_NAME")
+	viper.BindEnv("DC_URL")
+	viper.BindEnv("DC_PORT")
 
 	// Here you will define your flags and configuration settings.
 

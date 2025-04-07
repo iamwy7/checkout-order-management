@@ -16,15 +16,8 @@ limitations under the License.
 package cli
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
-
-	"github.com/spf13/viper"
 )
-
-var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -56,20 +49,4 @@ func init() {
 }
 
 // initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	viper.AutomaticEnv() // Automatically read environment variables
-
-	// Define environment variable bindings
-	viper.BindEnv("DB_HOST")
-	viper.BindEnv("DB_PORT")
-	viper.BindEnv("DB_USER")
-	viper.BindEnv("DB_PASSWORD")
-	viper.BindEnv("DB_NAME")
-	viper.BindEnv("DC_URL")
-	viper.BindEnv("DC_PORT")
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-	}
-}
+func initConfig() {}
