@@ -14,7 +14,7 @@ func NewGetOrderUseCase(order_repo out_ports.OrderRepository, dc_repo out_ports.
 		order_repo: order_repo}
 }
 
-func (uc *GetOrderUseCase) Execute(orderId string) (*dtos.CreatedOrderOutputDto, error) {
+func (uc *GetOrderUseCase) Execute(orderId string) (*dtos.CreatedOrderOutputDTO, error) {
 	order, err := uc.order_repo.GetAggregatedOrderById(orderId)
 	if err != nil {
 		return nil, err

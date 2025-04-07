@@ -22,7 +22,7 @@ func NewCreateOrderUseCase(order_repo out_ports.OrderRepository, dc_repo out_por
 		dc_repo:    dc_repo,
 	}
 }
-func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*usecase.CreatedOrderOutputDto, error) {
+func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*usecase.CreatedOrderOutputDTO, error) {
 	// Validate Products
 	products := make([]domain.Product, len(input.Products))
 	for _, product := range input.Products {
@@ -58,7 +58,7 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 	return MapOrderToOrderOutputDto(order), nil
 }
 
-func (uc *CreateOrderUseCase) getDCsForEachProduct(productDto usecase.ProductInputDto) (*[]domain.DistributionCenter, error) {
+func (uc *CreateOrderUseCase) getDCsForEachProduct(productDto usecase.ProductInputDTO) (*[]domain.DistributionCenter, error) {
 	dc, err := uc.dc_repo.GetDCsByItemId(productDto.Id)
 	if err != nil {
 		return nil, err

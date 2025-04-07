@@ -83,7 +83,6 @@ func (oa *OrderAdapter) GetAggregatedOrderById(orderId string) (*domain.Order, e
 		return nil, err
 	}
 	order.Products = *products
-	order.ProductsCount = len(*products)
 	return order, nil
 }
 
@@ -165,7 +164,7 @@ func (oa *OrderAdapter) GetOrderById(orderId string) (*domain.Order, error) {
 	defer rows.Close()
 
 	var order domain.Order
-	err = rows.Scan(&order.Id, &order.Zone, &order.State, &order.Status, &order.CreatedAt, &order.UpdatedAt)
+	err = rows.Scan(&order.Id, &order.Zone, &order.State, &order.Status, &order.ProductsCount, &order.CreatedAt, &order.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}

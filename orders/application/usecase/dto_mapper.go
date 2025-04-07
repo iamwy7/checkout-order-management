@@ -5,15 +5,15 @@ import (
 	"github.com/iamwy7/meli-challenge/orders/application/usecase/dtos"
 )
 
-func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDto {
-	productsDto := make([]dtos.ProductOutputDto, len(order.Products))
+func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDTO {
+	productsDto := make([]dtos.ProductOutputDTO, len(order.Products))
 	for _, product := range order.Products {
-		dc := dtos.DistributionCenterOutputDto{
+		dc := dtos.DistributionCenterOutputDTO{
 			Id:   product.DistributionCenter.Id,
 			Name: product.DistributionCenter.Name,
 			Zone: string(product.DistributionCenter.Zone),
 		}
-		productDto := dtos.ProductOutputDto{
+		productDto := dtos.ProductOutputDTO{
 			Id:                 product.Id,
 			Name:               product.Name,
 			Price:              product.Price,
@@ -23,7 +23,7 @@ func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDto {
 		productsDto = append(productsDto, productDto)
 	}
 
-	orderDto := &dtos.CreatedOrderOutputDto{
+	orderDto := &dtos.CreatedOrderOutputDTO{
 		Id:            order.Id,
 		Zone:          string(order.Zone),
 		State:         order.State,
