@@ -57,21 +57,16 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := os.UserHomeDir()
-		cobra.CheckErr(err)
+	viper.AutomaticEnv() // Automatically read environment variables
 
-		// Search config in home directory with name ".meli-orders" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigType("yaml")
-		viper.SetConfigName(".meli-orders")
-	}
-
-	viper.AutomaticEnv() // read in environment variables that match
+	// Define environment variable bindings
+	viper.BindEnv("DB_HOST")
+	viper.BindEnv("DB_PORT")
+	viper.BindEnv("DB_USER")
+	viper.BindEnv("DB_PASSWORD")
+	viper.BindEnv("DB_NAME")
+	viper.BindEnv("DC_URL")
+	viper.BindEnv("DC_PORT")
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {

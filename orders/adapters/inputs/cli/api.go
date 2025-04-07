@@ -18,6 +18,7 @@ package cli
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -32,6 +33,7 @@ import (
 	"github.com/iamwy7/meli-challenge/orders/adapters/outputs/http_client"
 	"github.com/iamwy7/meli-challenge/orders/application/usecase"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -47,23 +49,30 @@ var apiCmd = &cobra.Command{
 	Short: "Api is the way to interact with application.",
 	Long:  `Api command enable the '/orders' endpoint, that can receive a json to create an order or get one by id.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// Create the database connection
-		db_conn, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/orders_db")
+		dbHost := viper.GetString("DB_HOST")
+		dbPort := viper.GetString("DB_PORT")
+		dbUser := viper.GetString("DB_USER")
+		dbPass := viper.GetString("DB_PASSWORD")
+		dbName := viper.GetString("DB_NAME")
+		dbConnection, err := sql.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", dbUser, dbPass, dbHost, dbPort, dbName))
 		if err != nil {
 			log.Fatal(err)
 		}
-		defer db_conn.Close()
+		defer dbConnection.Close()
 
 		// Create the repositories
-		dc_repo := http_client.NewDistributionCenterAdapterFactory("http://127.0.0.1:8081")
-		order_repo, err := db_repository.NewMySqlOrderAdapterFactory(db_conn)
+		dcUrl := viper.GetString("DC_URL")
+		dcPort := viper.GetString("DC_PORT")
+
+		dcRepo := http_client.NewDistributionCenterAdapterFactory(fmt.Sprintf("http://%v:%v", dcUrl, dcPort))
+		ordeRepo, err := db_repository.NewMySqlOrderAdapterFactory(dbConnection)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		// Create the use cases
-		createOrderUseCase := usecase.NewCreateOrderUseCase(order_repo, dc_repo)
-		getOrderUseCase := usecase.NewGetOrderUseCase(order_repo)
+		createOrderUseCase := usecase.NewCreateOrderUseCase(ordeRepo, dcRepo)
+		getOrderUseCase := usecase.NewGetOrderUseCase(ordeRepo)
 
 		// Create the handlers
 		ordersHandler := api_handlers.NewOrderHandler(

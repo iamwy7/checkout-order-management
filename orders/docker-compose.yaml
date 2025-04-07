@@ -1,27 +1,29 @@
 services:
 
-  # orders:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     DB_HOST: mysql
-  #     DB_PORT: 3306
-  #     DB_USER: user
-  #     DB_PASSWORD: password
-  #     DB_NAME: orders_db
-  #   networks:
-  #     - orders_network
-  #   depends_on:
-  #     - mysql
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 3
+  orders:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: orders_db
+      DC_URL: wiremock
+      DC_PORT: 8081
+    networks:
+      - orders_network
+    depends_on:
+      - mysql
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   wiremock:
     image: wiremock/wiremock:latest
