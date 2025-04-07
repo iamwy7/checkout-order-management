@@ -7,19 +7,19 @@ import (
 	"net/http"
 
 	"github.com/iamwy7/meli-challenge/orders/application/domain"
-	ports "github.com/iamwy7/meli-challenge/orders/application/ports/outputs/http_client"
+	out_ports "github.com/iamwy7/meli-challenge/orders/application/ports/outputs"
 )
 
 type DistributionCenterAdapter struct {
 	BaseURL string
 }
 
-func NewDistributionCenterAdapterFactory(baseUrl string) ports.DistributionCentersRepository {
+func NewDistributionCenterAdapterFactory(baseUrl string) out_ports.DistributionCentersRepository {
 	return &DistributionCenterAdapter{BaseURL: baseUrl}
 }
 
 func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.DistributionCenter, error) {
-	path := fmt.Sprintf("%s/distributioncenters?itemId=%s", dca.BaseURL, itemId)
+	path := fmt.Sprintf("%s/distributioncenters?itemId=%s&zone=%s&status=%s", dca.BaseURL, itemId, "SP", "ACTIVE")
 
 	// Prep request with path
 	httpReq, err := http.NewRequest("GET", path, nil)
@@ -35,9 +35,8 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 		log.Printf("integration error to get distribution centers with status: %d and error %v", httpResp.StatusCode, err.Error())
 		return nil, ErrIntegrationServer
 	}
-
-	// Close when done
 	defer httpResp.Body.Close()
+
 	if httpResp.StatusCode != http.StatusOK {
 		log.Printf("failed to get distribution centers by id: %v with status code: %d", itemId, httpResp.StatusCode)
 		return nil, ErrIntegrationClient
@@ -55,6 +54,10 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 		log.Printf("no distribution centers found for itemId: %v", itemId)
 		return nil, ErrIntegrationDCsEmpty
 	}
-	domainDCs := MapResponseToDomain(&dcResp)
+	domainDCs, err := MapDCResponseToDomain(&dcResp)
+	if err != nil {
+		log.Printf("failed to map response to domain: %v", err.Error())
+		return nil, ErrIntegrationServer
+	}
 	return domainDCs, nil
 }

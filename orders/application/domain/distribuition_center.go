@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/iamwy7/meli-challenge/orders/application/shared"
+
 type DistributionCenterInterface interface {
 	Validate() error
 }
@@ -7,15 +9,19 @@ type DistributionCenterInterface interface {
 type DistributionCenter struct {
 	Id              string
 	Name            string
-	Zone            Zone
+	Zone            shared.Zone
+	State           string
+	Status          shared.Status
 	ProductQuantity int
 }
 
-func NewDistributionCenter(id string, name string, zone Zone, quantity int) (*DistributionCenter, error) {
+func NewDistributionCenter(id string, name string, zone shared.Zone, state string, status shared.Status, quantity int) (*DistributionCenter, error) {
 	dc := &DistributionCenter{
 		Id:              id,
 		Name:            name,
 		Zone:            zone,
+		State:           state,
+		Status:          status,
 		ProductQuantity: quantity,
 	}
 	if err := dc.Validate(); err != nil {
