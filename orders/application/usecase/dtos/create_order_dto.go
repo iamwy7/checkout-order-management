@@ -14,13 +14,14 @@ type ProductInputDto struct {
 }
 
 type CreatedOrderOutputDto struct {
-	Id        string             `json:"id"`
-	Zone      string             `json:"zone"`
-	State     string             `json:"state"`
-	Status    string             `json:"status"`
-	CreatedAt string             `json:"created_at"`
-	UpdatedAt string             `json:"updated_at"`
-	Products  []ProductOutputDto `json:"products"`
+	Id            string             `json:"id"`
+	Zone          string             `json:"zone"`
+	State         string             `json:"state"`
+	Status        string             `json:"status"`
+	CreatedAt     string             `json:"created_at"`
+	UpdatedAt     string             `json:"updated_at"`
+	Products      []ProductOutputDto `json:"products"`
+	ProductsCount int                `json:"products_count"`
 }
 
 type ProductOutputDto struct {

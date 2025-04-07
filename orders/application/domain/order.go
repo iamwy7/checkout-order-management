@@ -12,13 +12,14 @@ type OrderInterface interface {
 }
 
 type Order struct {
-	Id        string // UUID
-	Zone      shared.Zone
-	State     string
-	Status    shared.Status
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Products  []Product
+	Id            string // UUID
+	Zone          shared.Zone
+	State         string
+	Status        shared.Status
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	Products      []Product
+	ProductsCount int
 }
 
 func (o *Order) Validate() error {
@@ -45,13 +46,14 @@ func NewOrder(products []Product, zone string, state string) (*Order, error) {
 		return nil, err
 	}
 	order := &Order{
-		Id:        uuid.NewString(),
-		Zone:      validated_zone,
-		State:     state,
-		Status:    shared.PENDING,
-		CreatedAt: time.Now(), // example: Date.Format("2025-01-02 15:04:05")
-		UpdatedAt: time.Now(), // example: Date.Format("2025-01-02 15:04:05")
-		Products:  products,
+		Id:            uuid.NewString(),
+		Zone:          validated_zone,
+		State:         state,
+		Status:        shared.PENDING,
+		CreatedAt:     time.Now(), // example: Date.Format("2025-01-02 15:04:05")
+		UpdatedAt:     time.Now(), // example: Date.Format("2025-01-02 15:04:05")
+		Products:      products,
+		ProductsCount: len(products),
 	}
 	if err := order.Validate(); err != nil {
 		return nil, err

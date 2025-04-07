@@ -17,6 +17,17 @@ func NewMySqlOrderAdapterFactory(db *sql.DB) (out_ports.OrderRepository, error) 
 	return &OrderAdapter{db: db}, nil
 }
 
+func (oa *OrderAdapter) CreateAggregatedOrder(order domain.Order) error {
+	oa.CreateOrder(order)
+	for _, product := range order.Products {
+		oa.CreateProduct(product)
+		oa.CreateDistributuionCenter(product.DistributionCenter)
+		oa.LinkProductToOrder(order.Id, product.Id, product.Quantity)
+		oa.LinkDistributionCenterToProduct(product.Id, product.DistributionCenter.Id)
+	}
+	return nil
+}
+
 func (oa *OrderAdapter) CreateOrder(order domain.Order) error {
 	query := `
 		INSERT INTO orders (order_id, order_zone, order_state, order_status, order_created_at, order_updated_at)
@@ -53,7 +64,7 @@ func (oa *OrderAdapter) LinkProductToOrder(orderId string, prodId string, quanti
 	return err
 }
 
-func (oa *OrderAdapter) LinkDistributionCenterToProduct(prodId string, dcId string, quantityOrdered int) error {
+func (oa *OrderAdapter) LinkDistributionCenterToProduct(prodId string, dcId string) error {
 	query := `
 		INSERT INTO products_distribuition_centers(pdc_prod_id, pdc_dist_cen_id)
 		VALUES (?, ?)
@@ -66,12 +77,12 @@ func (oa *OrderAdapter) GetProductsByOrderId(orderId string) (*[]domain.Product,
 	query := `
 	SELECT 
 		p.prod_id AS product_id,
-		p.name AS product_name,
-		p.price AS product_price,
-		op.op_ordered_prod_quant AS ordered_quantity,
+		p.prod_name AS product_name,
+		p.prod_price AS product_price,
+		op.op_ordered_prod_quant AS ordered_prod_quant,
 		dc.dist_cen_id AS distribution_center_id,
-		dc.name AS distribution_center_name,
-		dc.zone AS distribution_center_zone
+		dc.dist_cen_name AS distribution_center_name,
+		dc.dist_cen_zone AS distribution_center_zone
 	FROM 
 		order_products op
 	INNER JOIN 
@@ -119,11 +130,12 @@ func (oa *OrderAdapter) GetOrderById(orderId string) (*domain.Order, error) {
 	query := `
 	SELECT 
 		o.order_id AS order_id,
-		o.zone AS order_zone,
-		o.state AS order_state,
-		o.status AS order_status,
-		o.created_at AS order_created_at,
-		o.updated_at AS order_updated_at
+		o.order_zone AS order_zone,
+		o.order_state AS order_state,
+		o.order_status AS order_status,
+		o.order_prod_count AS order_product_count,
+		o.order_created_at AS order_created_at,
+		o.order_updated_at AS order_updated_at
 	FROM 
 		orders o
 	WHERE 
