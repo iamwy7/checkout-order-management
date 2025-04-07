@@ -50,7 +50,7 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 	if err != nil {
 		return nil, err
 	}
-	err = uc.order_repo.CreateOrder(*order)
+	err = uc.order_repo.CreateAggregatedOrder(*order)
 	if err != nil {
 		return nil, err
 	}

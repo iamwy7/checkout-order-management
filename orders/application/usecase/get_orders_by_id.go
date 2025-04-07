@@ -15,7 +15,7 @@ func NewGetOrderUseCase(order_repo out_ports.OrderRepository, dc_repo out_ports.
 }
 
 func (uc *GetOrderUseCase) Execute(orderId string) (*dtos.CreatedOrderOutputDto, error) {
-	order, err := uc.order_repo.GetOrderById(orderId)
+	order, err := uc.order_repo.GetAggregatedOrderById(orderId)
 	if err != nil {
 		return nil, err
 	}

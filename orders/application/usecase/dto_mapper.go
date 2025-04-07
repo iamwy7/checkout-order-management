@@ -24,13 +24,14 @@ func MapOrderToOrderOutputDto(order *domain.Order) *dtos.CreatedOrderOutputDto {
 	}
 
 	orderDto := &dtos.CreatedOrderOutputDto{
-		Id:        order.Id,
-		Zone:      string(order.Zone),
-		State:     order.State,
-		Status:    string(order.Status),
-		CreatedAt: order.CreatedAt.String(),
-		UpdatedAt: order.UpdatedAt.String(),
-		Products:  productsDto,
+		Id:            order.Id,
+		Zone:          string(order.Zone),
+		State:         order.State,
+		Status:        string(order.Status),
+		CreatedAt:     order.CreatedAt.String(),
+		UpdatedAt:     order.UpdatedAt.String(),
+		Products:      productsDto,
+		ProductsCount: order.ProductsCount,
 	}
 	return orderDto
 }
