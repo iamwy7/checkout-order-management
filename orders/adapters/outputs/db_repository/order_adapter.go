@@ -73,6 +73,20 @@ func (oa *OrderAdapter) LinkDistributionCenterToProduct(prodId string, dcId stri
 	return err
 }
 
+func (oa *OrderAdapter) GetAggregatedOrderById(orderId string) (*domain.Order, error) {
+	products, err := oa.GetProductsByOrderId(orderId)
+	if err != nil {
+		return nil, err
+	}
+	order, err := oa.GetOrderById(orderId)
+	if err != nil {
+		return nil, err
+	}
+	order.Products = *products
+	order.ProductsCount = len(*products)
+	return order, nil
+}
+
 func (oa *OrderAdapter) GetProductsByOrderId(orderId string) (*[]domain.Product, error) {
 	query := `
 	SELECT 
@@ -155,5 +169,6 @@ func (oa *OrderAdapter) GetOrderById(orderId string) (*domain.Order, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &order, nil
 }
