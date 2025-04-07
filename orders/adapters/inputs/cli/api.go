@@ -55,7 +55,7 @@ var apiCmd = &cobra.Command{
 		defer db_conn.Close()
 
 		// Create the repositories
-		dc_repo := http_client.NewDistributionCenterAdapterFactory("http://wiremock:8081")
+		dc_repo := http_client.NewDistributionCenterAdapterFactory("http://127.0.0.1:8081")
 		order_repo, err := db_repository.NewMySqlOrderAdapterFactory(db_conn)
 		if err != nil {
 			log.Fatal(err)

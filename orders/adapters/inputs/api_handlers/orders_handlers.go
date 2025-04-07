@@ -26,12 +26,12 @@ func NewOrderHandler(
 func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	var input dtos.CreateOrderInputDTO
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-		http.Error(w, "Invalid data to create an order", http.StatusBadRequest)
+		h.writeErrorResponse(w, "Invalid data to create an order", http.StatusBadRequest)
 		return
 	}
 	output, err := h.createOrderUseCase.Execute(input)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		h.writeErrorResponse(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)

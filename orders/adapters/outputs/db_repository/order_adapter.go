@@ -20,29 +20,50 @@ func NewMySqlOrderAdapterFactory(db *sql.DB) (out_ports.OrderRepository, error) 
 }
 
 func (oa *OrderAdapter) CreateAggregatedOrder(order domain.Order) error {
-	oa.CreateOrder(order)
+	err := oa.CreateOrder(order)
+	if err != nil {
+		log.Println("error creating order", err)
+		return err
+	}
 	for _, product := range order.Products {
-		oa.CreateProduct(product)
-		oa.CreateDistributuionCenter(product.DistributionCenter)
-		oa.LinkProductToOrder(order.Id, product.Id, product.Quantity)
-		oa.LinkDistributionCenterToProduct(product.Id, product.DistributionCenter.Id)
+		err := oa.CreateProduct(product)
+		if err != nil {
+			log.Println("error creating product", err)
+			return err
+		}
+		err = oa.CreateDistributuionCenter(product.DistributionCenter)
+		if err != nil {
+			log.Println("error creating dc", err)
+			return err
+		}
+		err = oa.LinkProductToOrder(order.Id, product.Id, product.Quantity)
+
+		if err != nil {
+			log.Println("error linking product to order", err)
+			return err
+		}
+		err = oa.LinkDistributionCenterToProduct(product.Id, product.DistributionCenter.Id)
+		if err != nil {
+			log.Println("error linking dc to product", err)
+			return err
+		}
 	}
 	return nil
 }
 
 func (oa *OrderAdapter) CreateOrder(order domain.Order) error {
 	query := `
-		INSERT INTO orders (order_id, order_zone, order_state, order_status, order_created_at, order_updated_at)
-		VALUES (?, ?, ?, ?, ?, ?)
+		INSERT INTO orders (order_id, order_zone, order_state, order_prod_count, order_status, order_created_at, order_updated_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?)
 	`
-	_, err := oa.db.Exec(query, order.Id, order.Zone, order.State, order.Status, order.CreatedAt, order.UpdatedAt)
+	_, err := oa.db.Exec(query, order.Id, order.Zone, order.State, order.ProductsCount, order.Status, order.CreatedAt.Format("2000-01-01 00:00:00"), order.UpdatedAt.Format("2000-01-01 00:00:00"))
 	return err
 }
 
 func (oa *OrderAdapter) CreateProduct(product domain.Product) error {
 	query := `
 		INSERT INTO products (prod_id, prod_name, prod_price)
-		VALUES (?, ?, ?, ?)
+		VALUES (?, ?, ?)
 	`
 	_, err := oa.db.Exec(query, product.Id, product.Name, product.Price)
 	return err

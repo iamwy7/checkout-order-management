@@ -41,13 +41,9 @@ func (o *Order) Validate() error {
 	return nil
 }
 func NewOrder(products []Product, zone string, state string) (*Order, error) {
-	validated_zone, err := shared.ValidateZone(zone)
-	if err != nil {
-		return nil, err
-	}
 	order := &Order{
 		Id:            uuid.NewString(),
-		Zone:          validated_zone,
+		Zone:          shared.Zone(zone),
 		State:         state,
 		Status:        shared.PENDING,
 		CreatedAt:     time.Now(), // example: Date.Format("2025-01-02 15:04:05")

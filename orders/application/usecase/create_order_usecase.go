@@ -25,7 +25,7 @@ func NewCreateOrderUseCase(order_repo out_ports.OrderRepository, dc_repo out_por
 func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*usecase.CreatedOrderOutputDTO, error) {
 	// Validate Products
 	products := make([]domain.Product, len(input.Products))
-	for _, product := range input.Products {
+	for i, product := range input.Products {
 		dcs, err := uc.getDCsForEachProduct(product)
 		if err != nil {
 			return nil, err
@@ -34,7 +34,6 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 		if err != nil {
 			return nil, err
 		}
-
 		if product.Quantity > chosenDC.ProductQuantity {
 			return nil, domain.ErrProductQuantityExceeded
 		}
@@ -42,7 +41,7 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 		if err != nil {
 			return nil, err
 		}
-		products = append(products, *p)
+		products[i] = *p
 	}
 
 	// Validate Order

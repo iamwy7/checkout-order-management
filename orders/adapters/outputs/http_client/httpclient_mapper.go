@@ -9,16 +9,7 @@ func MapDCResponseToDomain(dcResp *DistributionCenterResponse) (*[]domain.Distri
 	domainDCs := make([]domain.DistributionCenter, len(dcResp.DistributionCenters))
 
 	for i, dc := range dcResp.DistributionCenters {
-		dcZone, err := shared.ValidateZone(dc.Zone)
-		if err != nil {
-			return nil, err
-		}
-		dcStatus, err := shared.ValidateStatus(dc.Status)
-		if err != nil {
-			return nil, err
-		}
-
-		tempDC, err := domain.NewDistributionCenter(dc.Id, dc.Name, dcZone, dc.State, dcStatus, dc.Quantity)
+		tempDC, err := domain.NewDistributionCenter(dc.Id, dc.Name, shared.Zone(dc.Zone), dc.State, shared.Status(dc.Status), dc.Quantity)
 		if err != nil {
 			return nil, err
 		}

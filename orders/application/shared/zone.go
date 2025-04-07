@@ -14,13 +14,3 @@ const (
 	South1 Zone = "S1"
 	South2 Zone = "S2"
 )
-
-// ValidateZone checks if the zone is valid.
-func ValidateZone(zone string) (Zone, error) {
-	if zone != string(North1) && zone != string(North2) && zone != string(East1) &&
-		zone != string(East2) && zone != string(West) && zone != string(Center) &&
-		zone != string(South1) && zone != string(South2) {
-		return "", ErrInvalidZone
-	}
-	return Zone(zone), nil
-}

@@ -132,6 +132,7 @@
     {
       "id": "a7d2e3f4-6c9f-1d8b-0c2a-5e4d3b2a7f6c",
       "name": "CD17",
+      "zone": "E1",
       "state": "SP",
       "status": "ACTIVE",
       "quantity": 456
