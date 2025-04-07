@@ -2,7 +2,7 @@
   "priority": 1,
   "request": {
     "method": "GET",
-    "url": "/distributioncenters?itemId=0f99276b-aa53-44f6-8bb6-5b4ededc9615"
+    "url": "/distributioncenters?itemId=0f99276b-aa53-44f6-8bb6-5b4ededc9615&zone=SP&status=ACTIVE"
   },
   "response": {
     "status": 200,
