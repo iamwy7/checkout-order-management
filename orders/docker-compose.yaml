@@ -68,8 +68,35 @@ services:
     depends_on:
       - mysql
 
+  sonarqube:
+    image: sonarqube:lts
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonar-postgres:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    networks:
+      - orders_network
+    depends_on:
+      - sonar-postgres
+
+  sonar-postgres:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    networks:
+      - orders_network
+    volumes:
+      - sonar_postgres_data:/var/lib/postgresql/data
+
 networks:
   orders_network:
 
 volumes:
   db_data:
+  sonar_postgres_data:

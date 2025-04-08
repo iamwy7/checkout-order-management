@@ -83,6 +83,10 @@ var apiCmd = &cobra.Command{
 
 		// Create the multiplex router
 		r := http.NewServeMux()
+		r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("UP"))
+		})
 		r.HandleFunc("/swagger/", httpSwagger.WrapHandler)
 		r.HandleFunc("/orders/{orderId}", ordersHandler.GetOrder)
 		r.HandleFunc("POST /orders", ordersHandler.CreateOrder)

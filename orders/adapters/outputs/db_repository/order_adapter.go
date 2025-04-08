@@ -100,11 +100,9 @@ func (oa *OrderAdapter) LinkDistributionCenterToProduct(prodId string, dcId stri
 func (oa *OrderAdapter) GetAggregatedOrderById(orderId string) (*domain.Order, error) {
 	products, err := oa.GetProductsByOrderId(orderId)
 	if err != nil {
-		log.Printf("%v: %v", domain.ErrUnexpectedError, err)
 		return nil, domain.ErrUnexpectedError
 	}
 	if len(*products) == 0 {
-		log.Printf("%v: %v", domain.ErrUnexpectedError, err)
 		return nil, domain.ErrOrderInvalidId
 	}
 	order, err := oa.GetOrderById(orderId)
@@ -197,7 +195,6 @@ func (oa *OrderAdapter) GetOrderById(orderId string) (*domain.Order, error) {
 	var createdAt, updatedAt string // Temporary variables to hold the raw date values
 	err = rows.Scan(&order.Id, &order.Zone, &order.State, &order.Status, &order.ProductsCount, &createdAt, &updatedAt)
 	if err != nil {
-		log.Printf("%v: %v", domain.ErrUnexpectedError, err)
 		return nil, domain.ErrUnexpectedError
 	}
 
