@@ -14,7 +14,7 @@ services:
       DB_PASSWORD: root
       DB_NAME: orders_db
       DC_URL: wiremock
-      DC_PORT: 8081
+      DC_PORT: 8080
     networks:
       - orders_network
     depends_on:
