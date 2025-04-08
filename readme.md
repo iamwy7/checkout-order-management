@@ -134,8 +134,7 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 - [x] No serviço de `orders`
     - [x] Usa a lib [Cobra](https://github.com/spf13/cobra) pra iniciar e personalizar a porta que a aplicação usará.
     - [x] Usa a lib [Viper](https://github.com/spf13/viper) pra ter acesso a variáveis de ambiente pra conectar no banco de dados e ter a url do serviço de CDs.
-- [-] Temos um container de Sonarqube que confere o código e coverage.
-- [-] Temos algumas actions do Github Actions pra converir os testes e o código em sí.
+- [x] Temos um container de Sonarqube que confere o código e coverage. Se eu configurar certinho as exclusões ele deixa de massacrar meu código ;-;.
 
 
 ### Ideias futuras ou opcionais
@@ -156,5 +155,13 @@ Para recriar as documentações usando o swaggo
 ``` sh
     swag init --parseDependency --parseInternal --output ./docs
 ``` 
+
+
+Para rodar um container que tenha sonar scanner embutido:
+docker run --rm\
+    -e SONAR_HOST_URL="http://sonarqube:9000"\
+    -e SONAR_LOGIN="squ_9b0f2da84dccfd6459e60fe2bdd44cdb5ba8c462"\
+    --network orders_orders_network -v ".:/usr/src"\
+    sonarsource/sonar-scanner-cli
 
 -->
