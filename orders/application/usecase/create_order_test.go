@@ -44,13 +44,11 @@ func TestCreateEventUseCase(t *testing.T) {
 
 	mockDcRepo.On("GetDCsByItemId", mock.AnythingOfType("string")).Return(&domainDcs, nil)
 	mockOrderRepo.On("CreateAggregatedOrder", mock.AnythingOfType("domain.Order")).Return(nil)
-	mockOrderRepo.On("CreateOrder", mock.AnythingOfType("domain.Order")).Return(nil)
-	mockOrderRepo.On("CreateProduct", mock.AnythingOfType("domain.Product")).Return(nil)
-	mockOrderRepo.On("CreateDistributuionCenter", mock.AnythingOfType("domain.DistributionCenter")).Return(nil)
-	mockOrderRepo.On("LinkProductToOrder", mock.AnythingOfType("string"), mock.AnythingOfType("string"), mock.AnythingOfType("int")).Return(nil)
-	mockOrderRepo.On("LinkDistributionCenterToProduct", mock.AnythingOfType("string"), mock.AnythingOfType("string")).Return(nil)
 
 	output, err := createOrderUseCase.Execute(*input)
 	assert.NotNil(t, output)
 	assert.Nil(t, err)
+
+	// Assert that the mock repository was called
+	mockOrderRepo.AssertExpectations(t)
 }
