@@ -22,11 +22,7 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 	path := fmt.Sprintf("%s/distributioncenters?itemId=%s&zone=%s&status=%s", dca.BaseURL, itemId, "SP", "ACTIVE")
 
 	// Prep request with path
-	httpReq, err := http.NewRequest("GET", path, nil)
-	if err != nil {
-		log.Printf("failed to prep request to get distribution centers for reason: %v", err.Error())
-		return nil, err
-	}
+	httpReq, _ := http.NewRequest("GET", path, nil)
 
 	// Get the current usable http_client and do the request
 	client := &http.Client{}
@@ -36,11 +32,6 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 		return nil, ErrIntegrationServer
 	}
 
-	// Ensure httpResp is not nil before accessing it
-	if httpResp == nil {
-		log.Printf("http response is empty for itemId: %v", itemId)
-		return nil, ErrIntegrationServer
-	}
 	defer func() {
 		if httpResp.Body != nil {
 			httpResp.Body.Close()
@@ -54,11 +45,6 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 
 	// Decode the response
 	var dcResp DistributionCenterResponse
-	if httpResp.Body == nil {
-		log.Printf("http response body is nil for itemId: %v", itemId)
-		return nil, ErrIntegrationDecodeJson
-	}
-
 	if err := json.NewDecoder(httpResp.Body).Decode(&dcResp); err != nil {
 		log.Printf("failed to decode response: %v", err.Error())
 		return nil, ErrIntegrationDecodeJson
