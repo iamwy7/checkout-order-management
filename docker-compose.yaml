@@ -1,3 +1,0 @@
-include:
-  - orders/docker-compose.yaml
-  - distribution_centers/docker-compose.yaml

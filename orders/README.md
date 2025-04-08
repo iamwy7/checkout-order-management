@@ -92,3 +92,11 @@ Esse microservice é o inicio da cadeia, é onde criamos um pedido e eles nos re
 ### Todo futuro ou opcional
 - [ ] Criar um cache distribuido retroalimentado por produto com lifetime pra não virar um troço gigante.
 - [ ] Criar o CRUD de `/orders`
+
+
+### Como recriar as documentações do swagger
+
+Aqui usamos o pacote [swaggo/go](https://github.com/swaggo/swag) onde para recriar as documentações do swagger (depois de alterações das apis por exemplo) basta instala-lo seguindo a documentação e usar o comando na raiz do projeto /orders:
+``` sh
+    swag init --parseDependency --parseInternal --output ./docs
+```

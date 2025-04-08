@@ -12,11 +12,13 @@ import (
 	"github.com/iamwy7/meli-challenge/orders/application/usecase/dtos"
 )
 
+// OrdersHandler is our principal api handler
 type OrdersHandler struct {
 	createOrderUseCase *usecase.CreateOrderUseCase
 	getOrderUseCase    *usecase.GetOrderUseCase
 }
 
+// NewOrderHandler creates an instance of OrdersHandler
 func NewOrderHandler(
 	createOrderUseCase *usecase.CreateOrderUseCase,
 	getOrderUseCase *usecase.GetOrderUseCase,
@@ -27,6 +29,19 @@ func NewOrderHandler(
 	}
 }
 
+// CreateOrder handles the request to create an order
+//
+//	@Summary		Create an order
+//	@Description	Create an order with specific products
+//	@Tags			Orders
+//	@Accept			json
+//	@Produce		json
+//	@Param			input	body		dtos.CreateOrderInputDTO	true	"Order Input"
+//	@Success		201		{object}	dtos.CreatedOrderOutputDTO
+//	@Failure		400		{object}	ErrorResponse
+//	@Failure		404		{object}	ErrorResponse
+//	@Failure		500		{object}	ErrorResponse
+//	@Router			/orders [post]
 func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	var input dtos.CreateOrderInputDTO
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
@@ -43,7 +58,18 @@ func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(output)
 }
 
-// @Param orderId path string true "Order ID"
+// GetOrder handles the request to get an existing order
+//
+//	@Summary		List all events
+//	@Description	Get all events with their details
+//	@Tags			Orders
+//	@Accept			json
+//	@Produce		json
+//	@Param			orderId	path		string	true	"orderId"
+//	@Success		200		{object}	dtos.CreatedOrderOutputDTO
+//	@Failue			422 {object} ErrorResponse
+//	@Failure		500	{object}	ErrorResponse
+//	@Router			/orders/{orderId} [get]
 func (h *OrdersHandler) GetOrder(w http.ResponseWriter, r *http.Request) {
 	orderId := r.PathValue("orderId")
 	output, err := h.getOrderUseCase.Execute(orderId)
@@ -68,5 +94,5 @@ func (h *OrdersHandler) writeErrorResponse(w http.ResponseWriter, message string
 
 // ErrorResponse represents the structure of an error response
 type ErrorResponse struct {
-	Message string `json:"message"`
+	Message string `json:"message" example:" message about the error"`
 }

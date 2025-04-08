@@ -100,9 +100,11 @@ func (oa *OrderAdapter) LinkDistributionCenterToProduct(prodId string, dcId stri
 func (oa *OrderAdapter) GetAggregatedOrderById(orderId string) (*domain.Order, error) {
 	products, err := oa.GetProductsByOrderId(orderId)
 	if err != nil {
-		return nil, err
+		log.Printf("%v: %v", domain.ErrUnexpectedError, err)
+		return nil, domain.ErrUnexpectedError
 	}
 	if len(*products) == 0 {
+		log.Printf("%v: %v", domain.ErrUnexpectedError, err)
 		return nil, domain.ErrOrderInvalidId
 	}
 	order, err := oa.GetOrderById(orderId)

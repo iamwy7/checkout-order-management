@@ -26,24 +26,20 @@ import (
 	"syscall"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"                        // Database driver
-	_ "github.com/iamwy7/meli-challenge/orders/adapters/docs" // Import generated swagger docs
+	_ "github.com/go-sql-driver/mysql"               // Database driver
+	_ "github.com/iamwy7/meli-challenge/orders/docs" // Import generated Swagger docs
+	httpSwagger "github.com/swaggo/http-swagger"
+
 	"github.com/iamwy7/meli-challenge/orders/adapters/inputs/api_handlers"
 	"github.com/iamwy7/meli-challenge/orders/adapters/outputs/db_repository"
 	"github.com/iamwy7/meli-challenge/orders/adapters/outputs/http_client"
 	"github.com/iamwy7/meli-challenge/orders/application/usecase"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 var port string
 
-// @title Orders API
-// @version 1.0
-// @description This is a server for managing orders.
-// @host localhost:8080
-// @BasePath /
 var apiCmd = &cobra.Command{
 	Use:   "api",
 	Short: "Api is the way to interact with application.",

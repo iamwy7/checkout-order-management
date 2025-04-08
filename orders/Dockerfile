@@ -2,7 +2,7 @@
 FROM golang:1.24-alpine AS builder
 WORKDIR /go/src/
 COPY . .
-RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -tags netgo -ldflags="-s -w" ./cmd/orders/main.go
+RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -tags netgo -ldflags="-s -w" main.go
 
 FROM scratch AS runner
 WORKDIR /go/src/

@@ -1,0 +1,155 @@
+basePath: /
+definitions:
+  api_handlers.ErrorResponse:
+    properties:
+      message:
+        example: ' message about the error'
+        type: string
+    type: object
+  dtos.CreateOrderInputDTO:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/dtos.ProductInputDTO'
+        type: array
+      state:
+        example: SP
+        type: string
+      zone:
+        description: choosing criteria
+        example: S1
+        type: string
+    type: object
+  dtos.CreatedOrderOutputDTO:
+    properties:
+      created_at:
+        example: "2025-04-07T22:00:00Z"
+        type: string
+      id:
+        example: adec01f0-0393-436d-a441-04575e6624bb
+        type: string
+      products:
+        items:
+          $ref: '#/definitions/dtos.ProductOutputDTO'
+        type: array
+      products_count:
+        example: 3
+        type: integer
+      state:
+        example: SP
+        type: string
+      status:
+        example: PENDING
+        type: string
+      updated_at:
+        example: "2025-04-07T22:30:00Z"
+        type: string
+      zone:
+        example: S1
+        type: string
+    type: object
+  dtos.DistributionCenterOutputDTO:
+    properties:
+      id:
+        example: a2d705c1-7431-456b-b65f-bee431694b46
+        type: string
+      name:
+        example: DC1
+        type: string
+      zone:
+        example: S1
+        type: string
+    type: object
+  dtos.ProductInputDTO:
+    properties:
+      id:
+        example: 2b494226-db60-4dd0-b2a0-141b3ae52517
+        type: string
+      name:
+        example: Product A
+        type: string
+      price:
+        example: 10.5
+        type: number
+      quantity:
+        example: 4
+        type: integer
+    type: object
+  dtos.ProductOutputDTO:
+    properties:
+      distribution_center:
+        $ref: '#/definitions/dtos.DistributionCenterOutputDTO'
+      id:
+        example: 3195b102-353a-4d84-9639-7eda62ef5f08
+        type: string
+      name:
+        example: Product A
+        type: string
+      price:
+        example: 10.5
+        type: number
+      quantity:
+        example: 2
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a server for managing orders.
+  title: Orders API
+  version: "1.0"
+paths:
+  /orders:
+    post:
+      consumes:
+      - application/json
+      description: Create an order with specific products
+      parameters:
+      - description: Order Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateOrderInputDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dtos.CreatedOrderOutputDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api_handlers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api_handlers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api_handlers.ErrorResponse'
+      summary: Create an order
+      tags:
+      - Orders
+  /orders/{orderId}:
+    get:
+      consumes:
+      - application/json
+      description: Get all events with their details
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.CreatedOrderOutputDTO'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api_handlers.ErrorResponse'
+      summary: List all events
+      tags:
+      - Orders
+swagger: "2.0"
