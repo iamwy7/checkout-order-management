@@ -39,7 +39,7 @@ func MapProductDtoToProduct(productDto ProductDto) (*domain.Product, error) {
 }
 
 func MapDistributionCenterDtoToDistributionCenter(dcDto DistributionCenterDto) (*domain.DistributionCenter, error) {
-	domainDC, err := domain.NewDistributionCenter(dcDto.Id, dcDto.Name, shared.Zone(dcDto.Zone), dcDto.State, shared.Status(dcDto.Status), dcDto.ProductQuantity)
+	domainDC, err := domain.NewDistributionCenter(dcDto.Id, dcDto.Name, dcDto.Zone, dcDto.State, dcDto.Status, dcDto.ProductQuantity)
 	if err != nil {
 		return nil, err
 	}

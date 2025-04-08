@@ -22,9 +22,6 @@ func (p *Product) Validate() error {
 	if p.Price <= 0.00 {
 		return ErrProductInvalidPrice
 	}
-	if p.DistributionCenter.Id == "" {
-		return ErrProductWithoutDC
-	}
 	if p.Quantity <= 0 {
 		return ErrProductInvalidQuantity
 	}

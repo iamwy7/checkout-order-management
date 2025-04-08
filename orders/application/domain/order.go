@@ -30,24 +30,22 @@ func (o *Order) Validate() error {
 		return ErrOrderWithTooMuchProducts
 	}
 	if o.State != "SP" {
-		return ErrOrderZoneRequired
-	}
-	if o.Zone == "" {
-		return ErrOrderZoneRequired
-	}
-	if len(o.Zone) != 2 {
-		return ErrOrderInvalidZone
+		return ErrOrderInvalidState
 	}
 	return nil
 }
 func NewOrder(products []Product, zone string, state string) (*Order, error) {
+	validatedZone := shared.CheckZone(zone)
+	if validatedZone == "" {
+		return nil, ErrOrderInvalidZone
+	}
 	order := &Order{
 		Id:            uuid.NewString(),
-		Zone:          shared.Zone(zone),
+		Zone:          validatedZone,
 		State:         state,
 		Status:        shared.PENDING,
-		CreatedAt:     time.Now(), // example: Date.Format("2025-01-02 15:04:05")
-		UpdatedAt:     time.Now(), // example: Date.Format("2025-01-02 15:04:05")
+		CreatedAt:     time.Now(),
+		UpdatedAt:     time.Now(),
 		Products:      products,
 		ProductsCount: len(products),
 	}

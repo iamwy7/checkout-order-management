@@ -15,13 +15,21 @@ type DistributionCenter struct {
 	ProductQuantity int
 }
 
-func NewDistributionCenter(id string, name string, zone shared.Zone, state string, status shared.Status, quantity int) (*DistributionCenter, error) {
+func NewDistributionCenter(id string, name string, zone string, state string, status string, quantity int) (*DistributionCenter, error) {
+	validatedStatus := shared.CheckStatus(status)
+	if validatedStatus == "" {
+		return nil, ErrDcInvalidStatus
+	}
+	validatedZone := shared.CheckZone(zone)
+	if validatedZone == "" {
+		return nil, ErrDCInvalidZone
+	}
 	dc := &DistributionCenter{
 		Id:              id,
 		Name:            name,
-		Zone:            zone,
+		Zone:            validatedZone,
 		State:           state,
-		Status:          status,
+		Status:          validatedStatus,
 		ProductQuantity: quantity,
 	}
 	if err := dc.Validate(); err != nil {
@@ -36,12 +44,6 @@ func (dc *DistributionCenter) Validate() error {
 	}
 	if dc.Name == "" {
 		return ErrDCNameRequired
-	}
-	if dc.Zone == "" {
-		return ErrDCZoneRequired
-	}
-	if len(dc.Zone) > 2 {
-		return ErrDCInvalidZone
 	}
 	if dc.ProductQuantity <= 0 {
 		return ErrDCInvalidQuantity

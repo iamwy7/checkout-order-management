@@ -14,3 +14,12 @@ const (
 	South1 Zone = "S1"
 	South2 Zone = "S2"
 )
+
+func CheckZone(zone string) Zone {
+	switch Zone(zone) {
+	case North1, North2, East1, East2, West, Center, South1, South2:
+		return Zone(zone)
+	default:
+		return ""
+	}
+}
