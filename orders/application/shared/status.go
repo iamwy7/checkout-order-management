@@ -1,5 +1,6 @@
 package shared
 
+// Status are the available statuses to order and distribution center operation status
 type Status string
 
 const (
