@@ -1,0 +1,14 @@
+{
+  "priority": 2,
+  "request": {
+    "method": "GET",
+    "url": "/distributioncenters?itemId=c60ce040-e2e4-4828-b959-a500996816b8&zone=SP&status=ACTIVE"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "success-with-2-dcs.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

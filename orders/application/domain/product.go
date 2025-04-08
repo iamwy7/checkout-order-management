@@ -1,32 +1,41 @@
 package domain
 
-import (
-	"errors"
+import "github.com/google/uuid"
 
-	"github.com/google/uuid"
-)
+type ProductInterface interface {
+	Validate() error
+}
 
 type Product struct {
-	ID    string
-	Name  string
-	Price float64
+	Id                 string //UUID occurence of the product
+	CatalogProductId   string //UUID
+	Name               string
+	Price              float64
+	Quantity           int
+	DistributionCenter DistributionCenter
 }
 
 func (p *Product) Validate() error {
 	if p.Name == "" {
-		return errors.New("product name is required")
+		return ErrProductInvalidName
 	}
 	if p.Price <= 0.00 {
-		return errors.New("product invalid price")
+		return ErrProductInvalidPrice
+	}
+	if p.Quantity <= 0 {
+		return ErrProductInvalidQuantity
 	}
 	return nil
 }
 
-func NewProduct(name string, price float64) (*Product, error) {
+func NewProduct(catalogId string, name string, price float64, quantity int, dc DistributionCenter) (*Product, error) {
 	product := &Product{
-		ID:    uuid.NewString(),
-		Name:  name,
-		Price: price,
+		Id:                 uuid.NewString(),
+		CatalogProductId:   catalogId,
+		Name:               name,
+		Price:              price,
+		Quantity:           quantity,
+		DistributionCenter: dc,
 	}
 	if err := product.Validate(); err != nil {
 		return nil, err

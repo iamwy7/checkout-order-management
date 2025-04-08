@@ -4,4 +4,4 @@
 .gitignore
 docker-compose.*
 Dockerfile
-test.http
+*.env

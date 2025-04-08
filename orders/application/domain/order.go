@@ -1,39 +1,56 @@
 package domain
 
-import "errors"
+import (
+	"time"
 
-type Zone string
-
-const (
-	North1 Zone = "N1"
-	North2 Zone = "N2"
-	East1  Zone = "E1"
-	East2  Zone = "E2"
-	West   Zone = "W1"
-	Center Zone = "C1"
-	South1 Zone = "S1"
-	South2 Zone = "S2"
+	"github.com/google/uuid"
+	"github.com/iamwy7/meli-challenge/orders/application/shared"
 )
 
+type OrderInterface interface {
+	Validate() error
+}
+
 type Order struct {
-	Id       string // UUID
-	Products []Product
-	Zone     Zone
-	State    string
+	Id            string // UUID
+	Zone          shared.Zone
+	State         string
+	Status        shared.Status
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	Products      []Product
+	ProductsCount int
 }
 
 func (o *Order) Validate() error {
 	if len(o.Products) == 0 {
-		return errors.New("order must have some products to proccess")
+		return ErrOrderWithoutProducts
 	}
 	if len(o.Products) > 100 {
-		return errors.New("order have too many items, 100 is the limit")
+		return ErrOrderWithTooMuchProducts
 	}
-	if o.Zone == "" {
-		return errors.New("order zone is required")
-	}
-	if len(o.Zone) != 2 {
-		return errors.New("order zone must be 2 characters long")
+	if o.State != "SP" {
+		return ErrOrderInvalidState
 	}
 	return nil
+}
+func NewOrder(products []Product, zone string, state string) (*Order, error) {
+	validatedZone := shared.CheckZone(zone)
+	if validatedZone == "" {
+		return nil, ErrOrderInvalidZone
+	}
+	order := &Order{
+		Id:            uuid.NewString(),
+		Zone:          validatedZone,
+		State:         state,
+		Status:        shared.PENDING,
+		CreatedAt:     time.Now(),
+		UpdatedAt:     time.Now(),
+		Products:      products,
+		ProductsCount: len(products),
+	}
+	if err := order.Validate(); err != nil {
+		return nil, err
+	}
+	return order, nil
 }

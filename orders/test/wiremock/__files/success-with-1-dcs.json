@@ -4,6 +4,9 @@
     {
       "id": "66af3398-fd04-471f-aefc-a2280e7d02d3",
       "name": "CD1",
+      "zone": "S1",
+      "state" :"SP",
+			"status": "ACTIVE",
       "quantity": 51
     }
   ]
