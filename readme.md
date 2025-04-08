@@ -129,13 +129,13 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
     - [x] Temos Responsabilidades unicas pois cada jornada/capacidade da aplicação é contida em use cases.
 - [x] Usei o [Swaggo/swag](https://github.com/swaggo/swag) para documentar a Api com Swagger, necessário para qualquer Dev/Parceiro que vá "consumir" a API.
 - [x] Docker para todo o ambiente, principal ferramenta pra facilitar na esteira de CI/CD e o próprio ambiente do Dev.
-- [ ] Temos testes unitarios com um coverage decente.
+- [x] Temos testes unitarios com um coverage decente.
 - [x] Temos Collection do insomnia para teste E2E.
 - [x] No serviço de `orders`
     - [x] Usa a lib [Cobra](https://github.com/spf13/cobra) pra iniciar e personalizar a porta que a aplicação usará.
     - [x] Usa a lib [Viper](https://github.com/spf13/viper) pra ter acesso a variáveis de ambiente pra conectar no banco de dados e ter a url do serviço de CDs.
-- [ ] Temos um container de Sonarqube que confere o código e coverage.
-- [ ] Temos algumas actions do Github Actions pra converir os testes e o código em sí.
+- [-] Temos um container de Sonarqube que confere o código e coverage.
+- [-] Temos algumas actions do Github Actions pra converir os testes e o código em sí.
 
 
 ### Ideias futuras ou opcionais
