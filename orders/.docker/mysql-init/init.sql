@@ -79,8 +79,8 @@ INSERT INTO order_products (op_order_id, op_prod_id, op_ordered_prod_quant) VALU
 ;
 
 INSERT INTO products_distribuition_centers(pdc_prod_id, pdc_dist_cen_id) VALUES
-  ('0f99276b-aa53-44f6-8bb6-5b4ededc9615', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c'),
-  ('c60ce040-e2e4-4828-b959-a500996816b8', 'b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c'),
-  ('f51f1901-16f5-4af4-b080-b1a14ad2b4fc', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c'),
-  ('8ebb99aa-cae8-48b8-8499-ec215b4f1edc', 'a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f')
+  ('0cb0a0d0-a815-41c6-9801-d4704c381cee', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c'),
+  ('987313b0-c694-49b5-9fee-55e0e75234b4', 'b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c'),
+  ('25067e02-4de5-40fd-aafc-3f47bb2abe61', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c'),
+  ('3ed31420-bd65-418d-81ac-84dd1f05fc78', 'a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f')
 ;

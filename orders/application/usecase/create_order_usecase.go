@@ -12,14 +12,14 @@ import (
 // Também precisa de um que é o que vai ser retornado pela api
 
 type CreateOrderUseCase struct {
-	order_repo out_ports.OrderRepository
-	dc_repo    out_ports.DistributionCentersRepository
+	ordeRepo out_ports.OrderRepository
+	dcRepo   out_ports.DistributionCentersRepository
 }
 
-func NewCreateOrderUseCase(order_repo out_ports.OrderRepository, dc_repo out_ports.DistributionCentersRepository) *CreateOrderUseCase {
+func NewCreateOrderUseCase(ordeRepo out_ports.OrderRepository, dcRepo out_ports.DistributionCentersRepository) *CreateOrderUseCase {
 	return &CreateOrderUseCase{
-		order_repo: order_repo,
-		dc_repo:    dc_repo,
+		ordeRepo: ordeRepo,
+		dcRepo:   dcRepo,
 	}
 }
 func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*usecase.CreatedOrderOutputDTO, error) {
@@ -49,7 +49,7 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 	if err != nil {
 		return nil, err
 	}
-	err = uc.order_repo.CreateAggregatedOrder(*order)
+	err = uc.ordeRepo.CreateAggregatedOrder(*order)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (uc *CreateOrderUseCase) Execute(input usecase.CreateOrderInputDTO) (*useca
 }
 
 func (uc *CreateOrderUseCase) getDCsForEachProduct(productDto usecase.ProductInputDTO) (*[]domain.DistributionCenter, error) {
-	dc, err := uc.dc_repo.GetDCsByItemId(productDto.Id)
+	dc, err := uc.dcRepo.GetDCsByItemId(productDto.Id)
 	if err != nil {
 		return nil, err
 	}

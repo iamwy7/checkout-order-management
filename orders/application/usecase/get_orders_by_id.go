@@ -6,16 +6,16 @@ import (
 )
 
 type GetOrderUseCase struct {
-	order_repo out_ports.OrderRepository
+	orderRepo out_ports.OrderRepository
 }
 
-func NewGetOrderUseCase(order_repo out_ports.OrderRepository) *GetOrderUseCase {
+func NewGetOrderUseCase(orderRepo out_ports.OrderRepository) *GetOrderUseCase {
 	return &GetOrderUseCase{
-		order_repo: order_repo}
+		orderRepo: orderRepo}
 }
 
 func (uc *GetOrderUseCase) Execute(orderId string) (*dtos.CreatedOrderOutputDTO, error) {
-	order, err := uc.order_repo.GetAggregatedOrderById(orderId)
+	order, err := uc.orderRepo.GetAggregatedOrderById(orderId)
 	if err != nil {
 		return nil, err
 	}

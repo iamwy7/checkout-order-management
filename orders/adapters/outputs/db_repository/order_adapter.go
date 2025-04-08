@@ -117,6 +117,7 @@ func (oa *OrderAdapter) GetProductsByOrderId(orderId string) (*[]domain.Product,
 	query := `
 	SELECT 
 		p.prod_id AS product_id,
+		p.prod_prod_catalog_id AS product_catalog_id,
 		p.prod_name AS product_name,
 		p.prod_price AS product_price,
 		op.op_ordered_prod_quant AS ordered_prod_quant,
@@ -156,7 +157,7 @@ func (oa *OrderAdapter) GetProductsByOrderId(orderId string) (*[]domain.Product,
 	for rows.Next() {
 		var product domain.Product
 		var dc domain.DistributionCenter
-		err = rows.Scan(&product.Id, &product.Name, &product.Price, &product.Quantity, &dc.Id, &dc.Name, &dc.Zone)
+		err = rows.Scan(&product.Id, &product.CatalogProductId, &product.Name, &product.Price, &product.Quantity, &dc.Id, &dc.Name, &dc.Zone)
 		if err != nil {
 			return nil, err
 		}

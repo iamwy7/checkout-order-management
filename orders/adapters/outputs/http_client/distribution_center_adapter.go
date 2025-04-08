@@ -24,7 +24,7 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 	// Prep request with path
 	httpReq, err := http.NewRequest("GET", path, nil)
 	if err != nil {
-		log.Printf("failed to prep request to get distribution centers for reason:%v", err.Error())
+		log.Printf("failed to prep request to get distribution centers for reason: %v", err.Error())
 		return nil, err
 	}
 
@@ -32,10 +32,20 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 	client := &http.Client{}
 	httpResp, err := client.Do(httpReq)
 	if err != nil {
-		log.Printf("integration error to get distribution centers with status: %d and error %v", httpResp.StatusCode, err.Error())
+		log.Printf("integration error to get distribution centers: %v", err.Error())
 		return nil, ErrIntegrationServer
 	}
-	defer httpResp.Body.Close()
+
+	// Ensure httpResp is not nil before accessing it
+	if httpResp == nil {
+		log.Printf("http response is empty for itemId: %v", itemId)
+		return nil, ErrIntegrationServer
+	}
+	defer func() {
+		if httpResp.Body != nil {
+			httpResp.Body.Close()
+		}
+	}()
 
 	if httpResp.StatusCode != http.StatusOK {
 		log.Printf("failed to get distribution centers by id: %v with status code: %d", itemId, httpResp.StatusCode)
@@ -44,20 +54,27 @@ func (dca *DistributionCenterAdapter) GetDCsByItemId(itemId string) (*[]domain.D
 
 	// Decode the response
 	var dcResp DistributionCenterResponse
+	if httpResp.Body == nil {
+		log.Printf("http response body is nil for itemId: %v", itemId)
+		return nil, ErrIntegrationDecodeJson
+	}
+
 	if err := json.NewDecoder(httpResp.Body).Decode(&dcResp); err != nil {
 		log.Printf("failed to decode response: %v", err.Error())
 		return nil, ErrIntegrationDecodeJson
 	}
 
-	// Check if the response is empty (that definetly means that the ItemId is not valid or something else)
+	// Check if the response is empty
 	if len(dcResp.DistributionCenters) == 0 {
 		log.Printf("no distribution centers found for itemId: %v", itemId)
 		return nil, ErrIntegrationDCsEmpty
 	}
+
 	domainDCs, err := MapDCResponseToDomain(&dcResp)
 	if err != nil {
 		log.Printf("failed to map response to domain: %v", err.Error())
 		return nil, ErrIntegrationServer
 	}
+
 	return domainDCs, nil
 }
