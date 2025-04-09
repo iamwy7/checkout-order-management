@@ -25,14 +25,14 @@ collection:
             meta:
               id: req_5eada486dfcf4774a42f02b42fa16d0e
               created: 1743730564994
-              modified: 1743966482685
+              modified: 1744164640656
               isPrivate: false
               sortKey: -1743733299215
             method: GET
             parameters:
               - id: pair_6ecbb63f97d549ce820225e0494f96ab
                 name: itemId
-                value: "{{ _.itemId }}"
+                value: 1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p
                 disabled: false
               - id: pair_b95a672c15924744ab57f26c0c3fa54c
                 name: zone
@@ -73,6 +73,26 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
+          - url: http://127.0.0.1:8081/health
+            name: /health
+            meta:
+              id: req_100d6882cba743c99b40c1edd0d085c6
+              created: 1744167008021
+              modified: 1744167012301
+              isPrivate: false
+              sortKey: -1743733299415
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
       - name: orders
         meta:
           id: fld_aa004db8cab143dd85db7a1070fa0a8e
@@ -85,7 +105,7 @@ collection:
             meta:
               id: req_b22e5e99198243818df8e6bf41567d55
               created: 1743964423084
-              modified: 1744025266010
+              modified: 1744167042145
               isPrivate: false
               sortKey: -1743964423085
             method: POST
@@ -93,23 +113,23 @@ collection:
               mimeType: application/json
               text: |-
                 {
-                  "products": [
-                    {
-                      "id": "0f99276b-aa53-44f6-8bb6-5b4ededc9615",
-                      "name": "Perfume Masculino",
-                      "price": 175.00,
-                      "quantity": 2
-                    },
-                    {
-                      "id": "c60ce040-e2e4-4828-b959-a500996816b8",
-                      "name": "Camisa Social",
-                      "price": 200.00,
-                      "quantity": 1
-                    }
-                  ],
-                  "zone": "S1",
-                  "state": "SP"
-                }
+                    "products": [
+                      {
+                        "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+                        "name": "Product Name 1",
+                        "price": 123.45,
+                        "quantity": 3
+                      },
+                      {
+                        "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+                        "name": "Product Name 2",
+                        "price": 456.78,
+                        "quantity": 5
+                      }
+                    ],
+                    "zone": "S1",
+                    "state": "SP"
+                  }
             headers:
               - name: Content-Type
                 value: application/json
@@ -123,12 +143,12 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
-          - url: http://127.0.0.1:8080/orders/ffe11d95-f708-4348-9387-8ab9ce86bd3c
+          - url: http://127.0.0.1:8080/orders/d8225bdb-4d04-44fc-bd47-8920c18f5d01
             name: /orders/{orderId}
             meta:
               id: req_14fb8b3aca784260a207887764826378
               created: 1744013742744
-              modified: 1744077688621
+              modified: 1744166893701
               isPrivate: false
               sortKey: -1744013742744
             method: GET
@@ -148,9 +168,29 @@ collection:
             meta:
               id: req_146819e3b9b64f63bd309ae4135c5dc8
               created: 1744075101378
-              modified: 1744075121150
+              modified: 1744117416383
               isPrivate: false
               sortKey: -1744075101378
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8080/health
+            name: /health
+            meta:
+              id: req_8a7b2e9a363c4dd69cc9ce7c2993382a
+              created: 1744117472220
+              modified: 1744117485066
+              isPrivate: false
+              sortKey: -1744117472220
             method: GET
             headers:
               - name: User-Agent
@@ -170,11 +210,11 @@ cookieJar:
     created: 1743738339114
     modified: 1743738339114
 environments:
-  name: itemIds
+  name: Mock ONLY
   meta:
     id: env_0473b57c176c45acb870a2620577d256
     created: 1743548620632
-    modified: 1744077859305
+    modified: 1744167034520
     isPrivate: false
   subEnvironments:
     - name: 1 CDs por itemId
