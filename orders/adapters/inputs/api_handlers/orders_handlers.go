@@ -64,8 +64,8 @@ func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 
 // GetOrder handles the request to get an existing order
 //
-//	@Summary		List all events
-//	@Description	Get all events with their details
+//	@Summary		Get an order
+//	@Description	Get an order by orderId in the path
 //	@Tags			Orders
 //	@Accept			json
 //	@Produce		json
