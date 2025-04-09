@@ -39,6 +39,6 @@ type ProductOutputDTO struct {
 // DistributionCenterOutputDTO represents the output data of the distribution center of a product.
 type DistributionCenterOutputDTO struct {
 	Id   string `json:"id" example:"a2d705c1-7431-456b-b65f-bee431694b46"`
-	Name string `json:"name" example:"DC1"`
+	Name string `json:"name" example:"CD1"`
 	Zone string `json:"zone" example:"S1"`
 }
