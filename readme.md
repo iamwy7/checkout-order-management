@@ -192,7 +192,7 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
     - [x] Temos Responsabilidades unicas pois cada jornada/capacidade da aplicação é contida em use cases.
 - [x] Usei o [Swaggo/swag](https://github.com/swaggo/swag) para documentar a Api com Swagger, necessário para qualquer Dev/Parceiro que vá "consumir" a API.
 - [x] Docker para todo o ambiente, principal ferramenta pra facilitar na esteira de CI/CD e o próprio ambiente do Dev.
-- [x] Temos testes unitarios com um coverage decente.
+- [x] Temos testes unitarios com um coverage mínimo.
 - [x] Temos Collection do insomnia para teste E2E.
 - [x] No serviço de `orders`
     - [x] Usa a lib [Cobra](https://github.com/spf13/cobra) pra iniciar e personalizar a porta que a aplicação usará.
