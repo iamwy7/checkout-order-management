@@ -8,7 +8,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      DB_HOST: mysql
+      DB_HOST: distribution_centers_mysql
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: root
@@ -17,9 +17,9 @@ services:
     networks:
       - distribution_centers_network
     depends_on:
-      - mysql
+      - distribution_centers_mysql
 
-  mysql:
+  distribution_centers_mysql:
     image: mysql:8.0.30-debian
     restart: always
     environment:
@@ -38,23 +38,23 @@ services:
       - distribution_centers_network
     volumes:
       - ./.docker/mysql-init:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql
+      - distribution_centers_db_data:/var/lib/mysql
 
-  mysql-phpmyadmin:
+  distribution_centers_mysql-phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
       - "9091:80"
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: distribution_centers_mysql
       MYSQL_ROOT_PASSWORD: root
     networks:
       - distribution_centers_network
     depends_on:
-      - mysql
+      - distribution_centers_mysql
 
 networks:
   distribution_centers_network:
 
 volumes:
-  db_data:
+  distribution_centers_db_data:

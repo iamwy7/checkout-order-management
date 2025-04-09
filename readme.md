@@ -11,14 +11,16 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 > Considerações sobre os requisitos
 > - Troquei o itemId `123` para `UUID` no mock de `distribution_centers`.
 > - Criei um serviço chamado `orders` para atender essas capacidades.
+> - Criei um serviço chamado `distribution_centers` para atender as capacidades que o mock também atende.
 > - Adicionei um parametro para escolher de qual centro de distribuição um produto virá e sempre será o que tiver mais unidades do produto em questão.
 
 ### Como executar tudo?
-- Todos os serviços estão no `docker-compose.yaml` na [raiz do projeto](./orders/docker-compose.yaml).
-- A app [orders](./orders/) tem uma documentação de API com o Swagger no path `/swagger`.
+- Todos os serviços estão no `docker-compose.yaml` na [raiz do projeto](./docker-compose.yaml).
+- Cada uma das apps tem sua documentação de api com Swagger no path `/swagger`.
 - Deixei uma collection insomnia para teste E2E bem [aqui](./orders/test/insomnia/collection.yaml).
-- Tem um arquivo com os SELECTS em SQL equivalentes aos da aplicação caso queiram ver como as coisas ficaram guardadas no banco de dados bem [aqui](./orders/test/mysql/order_selects.sql)
-- Criei o Mock também do serviço de centros de distribuição usando o [Wiremock](https://github.com/wiremock/wiremock), que também se encontra [aqui](./orders/test/wiremock/docker-compose.yaml)
+- Tem um arquivo com os SELECTS em SQL equivalentes aos da aplicação `orders` bem [aqui](./orders/test/mysql/order_selects.sql)
+- Tem um arquivo com os SELECTS em SQL equivalentes aos da aplicação `distribution_centers` bem [aqui](./distribution_centers/test/mysql/distribution_centers.sql)
+- Criei o Mock também do serviço `distribution_centers` usando o [Wiremock](https://github.com/wiremock/wiremock), que também se encontra [aqui](./orders/test/wiremock/docker-compose.yaml) para uma resposta menor caso queiram.
 
 ### Sobre os endpoints
 > Essas requests estão mapeadas na collection do insomnia :)
@@ -85,6 +87,7 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 
 - `/orders/{order_id}` é um GET by id de pedido já criado para retornar tanto os dados dele quanto os produtos e os CDs de onde virão, seria a mesma resposta do `/orders`.
     ```
+    # Response
     {
         "id": "59183153-e264-4642-ab38-9f459cff8b18", #Sempre um novo a cada request
         "zone": "S1",
@@ -121,6 +124,65 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 
     ```
 
+- `/distributioncenters?itemId=1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p` é um GET by id de produto criado para retornar os CDs em que aquele produto tem estoque. Pode ser executado pelo [distribution_centers](./distribution_centers) ou pelo [wiremock](./orders/test/wiremock), fica a seu critério.
+    ```
+    # Response
+    {
+        "itemId": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+        "distributionCenters": [
+            {
+                "id": "a2b3c4d5-6f25-4d2c-8e3a-1a2b3c4d5e6f",
+                "name": "CD5",
+                "zone": "S2",
+                "state": "SP",
+                "status": "ACTIVE",
+                "quantity": 233
+            },
+            {
+                "id": "a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f",
+                "name": "CD1",
+                "zone": "C1",
+                "state": "SP",
+                "status": "ACTIVE",
+                "quantity": 120
+            },
+            {
+                "id": "b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c",
+                "name": "CD2",
+                "zone": "N1",
+                "state": "SP",
+                "status": "ACTIVE",
+                "quantity": 123
+            },
+            {
+                "id": "e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c",
+                "name": "CD3",
+                "zone": "N2",
+                "state": "SP",
+                "status": "ACTIVE",
+                "quantity": 443
+            },
+            {
+                "id": "f1a3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f",
+                "name": "CD4",
+                "zone": "S1",
+                "state": "SP",
+                "status": "ACTIVE",
+                "quantity": 3566
+            },
+            {
+                "id": "i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f",
+                "name": "CD13",
+                "zone": "S2",
+                "state": "SP",
+                "status": "ACTIVE",
+                "quantity": 511
+            }
+        ]
+    }
+
+    ```
+
 ### Decisões tecnicas pessoais
 - [x] Usar a linguagem Go, por proximidade com o ecossistema do Meli e por gosto pela performance dela.
 - [x] Usar Hexagonal Architecture.
@@ -134,6 +196,10 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 - [x] No serviço de `orders`
     - [x] Usa a lib [Cobra](https://github.com/spf13/cobra) pra iniciar e personalizar a porta que a aplicação usará.
     - [x] Usa a lib [Viper](https://github.com/spf13/viper) pra ter acesso a variáveis de ambiente pra conectar no banco de dados e ter a url do serviço de CDs.
+- [x] No serviço de `distribution_centers`
+    - [x] Implementamos o mock do teste com um código mais simples, já que ele entra no lugar do mock requisitado no teste assim como o wiremock e vice versa, mas também temos Swagger e um endpoint de HealthCheck.
+    - [x] Também temos um banco de dados pra ele que guarda o relacionamento de produtos e centros de distribuição, que o mock também retornaria.
+
 - [x] Temos um container de Sonarqube que confere o código e coverage. Se eu configurar certinho as exclusões ele deixa de massacrar meu código ;-;.
 
 
