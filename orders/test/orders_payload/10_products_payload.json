@@ -1,0 +1,66 @@
+{
+    "products": [
+      {
+        "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+        "name": "Product Name 1",
+        "price": 123.45,
+        "quantity": 3
+      },
+      {
+        "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+        "name": "Product Name 2",
+        "price": 456.78,
+        "quantity": 5
+      },
+      {
+        "id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+        "name": "Product Name 3",
+        "price": 789.01,
+        "quantity": 7
+      },
+      {
+        "id": "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s",
+        "name": "Product Name 4",
+        "price": 234.56,
+        "quantity": 4
+      },
+      {
+        "id": "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t",
+        "name": "Product Name 5",
+        "price": 987.65,
+        "quantity": 8
+      },
+      {
+        "id": "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u",
+        "name": "Product Name 6",
+        "price": 345.67,
+        "quantity": 6
+      },
+      {
+        "id": "7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v",
+        "name": "Product Name 7",
+        "price": 678.90,
+        "quantity": 9
+      },
+      {
+        "id": "8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w",
+        "name": "Product Name 8",
+        "price": 1234.56,
+        "quantity": 2
+      },
+      {
+        "id": "9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x",
+        "name": "Product Name 9",
+        "price": 7890.12,
+        "quantity": 10
+      },
+      {
+        "id": "0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y",
+        "name": "Product Name 10",
+        "price": 567.89,
+        "quantity": 4
+      }
+    ],
+    "zone": "S1",
+    "state": "SP"
+}
