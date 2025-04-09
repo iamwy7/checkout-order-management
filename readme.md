@@ -21,7 +21,7 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 - Tem um arquivo com os SELECTS em SQL equivalentes aos da aplicação `orders` bem [aqui](./orders/test/mysql/order_selects.sql)
 - Tem um arquivo com os SELECTS em SQL equivalentes aos da aplicação `distribution_centers` bem [aqui](./distribution_centers/test/mysql/distribution_centers.sql)
 - Criei o Mock também do serviço `distribution_centers` usando o [Wiremock](https://github.com/wiremock/wiremock), que também se encontra [aqui](./orders/test/wiremock/docker-compose.yaml) para uma resposta menor caso queiram.
-- Nessa [pasta](./orders/test/orders_payload/) teremos payloads para crriar os pedidos, com números de produtos variados, é só copiar e collar na collection ou na ferramenta que escolher pra testar as apis do serviço de `orders`.
+- Nessa [pasta](./orders/test/orders_payload/) teremos payloads para criar os pedidos, com números de produtos variados, é só copiar e collar na collection ou na ferramenta que escolher pra testar as apis do serviço de `orders`.
 
 ### Sobre os endpoints
 > Essas requests estão mapeadas na collection do insomnia :)
