@@ -49,6 +49,10 @@ func (h *OrdersHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	output, err := h.createOrderUseCase.Execute(input)
+	if errors.Is(err, domain.ErrOrderWithTooMuchProducts) {
+		h.writeErrorResponse(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	if err != nil {
 		h.writeErrorResponse(w, err.Error(), http.StatusInternalServerError)
 		return
