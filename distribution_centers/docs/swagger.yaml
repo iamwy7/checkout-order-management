@@ -1,0 +1,72 @@
+basePath: /
+definitions:
+  api_handler.ErrorResponse:
+    properties:
+      message:
+        example: ' message about the error'
+        type: string
+    type: object
+  dtos.DistributionCenter:
+    properties:
+      id:
+        example: a2d705c1-7431-456b-b65f-bee431694b46
+        type: string
+      name:
+        example: CD1
+        type: string
+      quantity:
+        example: 633
+        type: integer
+      state:
+        example: SP
+        type: string
+      status:
+        example: ACTIVE
+        type: string
+      zone:
+        example: W1
+        type: string
+    type: object
+  dtos.DistributionCenters:
+    properties:
+      distributionCenters:
+        items:
+          $ref: '#/definitions/dtos.DistributionCenter'
+        type: array
+      itemId:
+        example: 493d60ac-64c4-4bc6-8fbf-eefe752790c4
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a server for managing disctribution centers.
+  title: Distribution Centers API
+  version: "1.0"
+paths:
+  /distributioncenters:
+    get:
+      consumes:
+      - application/json
+      description: Get all distribution centers of an itemId
+      parameters:
+      - description: itemId
+        in: query
+        name: itemId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.DistributionCenters'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api_handler.ErrorResponse'
+      summary: List distribution centers
+      tags:
+      - DistributionCenters
+swagger: "2.0"
