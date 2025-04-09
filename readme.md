@@ -205,7 +205,6 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 
 
 ### Ideias futuras
-- Estou terminando uma implementação em código Go do serviço de distribution_centers, que tem vários produtos espalhados por centros de distribuição no banco de dados dele, vai ser mais fácil pra gerar massas de teste onde o pedido tenha 100 produtos por exemplo. Não subi junto porque não terminei a tempo, mas vou subir em uma branch separada `feature/dc_service` pra não afetar a avaliação.
 - Criar/Usar um serviço que valide os produtos, como um serviço de `catalog`. Manter a responsabilidade de produtos dentro do serviço de pedidos não é eficiente, pois o serviço de centros de distribuição também precisa manter essas informações atualizadas, levando a necessidade de mais um serviço na arquitetura.
 - Criar dentro de `orders` um worker que consulte se algum pedido foi feito pela metade, seja por algum erro de conexão com o banco no meio da transação, para que ele exclua pedidos, produtos ou centros de distribuição "orfãos". Mantendo a Atomicidade da transação, por mais que ela já aconteça de forma invertida.
 - Criei um parametro de State/Estado. Supondo que o negócio abra mais CDs em outros estados, pode ser um parametro de decisão também, além de saber qual CD tem mais daquele produto, dá pra pesquisar baseado em CDs que estejam em estados adjacentes ao informado no pedido. Por isso no Path da consulta tem um query parameter de `zone` e `state`.
