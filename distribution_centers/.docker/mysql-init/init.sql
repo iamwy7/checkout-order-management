@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS products_distribuition_centers (
     FOREIGN KEY (pdc_dist_cen_id) REFERENCES distribution_centers(dist_cen_id) ON DELETE CASCADE
 );
 
-  INSERT INTO products (prod_id, prod_name, prod_price) VALUES
+INSERT INTO products (prod_id, prod_name, prod_price) VALUES
   ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'Product Name 1', 123.45),
   ('2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q', 'Product Name 2', 456.78),
   ('3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r', 'Product Name 3', 789.01),
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS products_distribuition_centers (
   ('641e6924-a43f-4c43-97ae-fe85b5e83b54', 'Product Name 104', 499.99),
   ('27ed155d-3d47-484d-bdec-b3e941eb2419', 'Product Name 105', 125.00);
 
-  INSERT INTO distribution_centers (dist_cen_id, dist_cen_name, dist_cen_zone, dist_cen_state, dist_cen_status) VALUES
+INSERT INTO distribution_centers (dist_cen_id, dist_cen_name, dist_cen_zone, dist_cen_state, dist_cen_status) VALUES
   ('a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 'CD1', 'C1', 'SP', 'ACTIVE'),
   ('b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c', 'CD2', 'N1', 'SP', 'ACTIVE'),
   ('e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c', 'CD3', 'N2', 'SP', 'ACTIVE'),
@@ -165,21 +165,24 @@ CREATE TABLE IF NOT EXISTS products_distribuition_centers (
   ('w4x5y6z7-6f25-4d2c-8e3a-1a2b3c4d5e6f', 'CD27', 'C1', 'SP', 'ACTIVE'),
   ('x5y6z7a8-6f25-4d2c-8e3a-1a2b3c4d5e6f', 'CD28', 'S1', 'SP', 'ACTIVE');
 
-
 INSERT INTO products_distribuition_centers (pdc_prod_id, pdc_dist_cen_id, pdc_dist_cen_id_prod_count) VALUES
   ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 120),
   ('2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q', 'a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 450),
   ('3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r', 'a5e3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 789),
+  ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c', 123),
   ('4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s', 'b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c', 234),
   ('5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t', 'b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c', 987),
   ('6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u', 'b2d3e4f5-6a7f-1c9d-8b0c-3d4e5b2a7f6c', 345),
+  ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c', 443),
   ('7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c', 678),
   ('8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c', 1234),
   ('9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x', 'e4f5a7d2-6c9f-1d8b-0c2a-3d4e5b2a7f6c', 7890),
+  ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'f1a3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 3566),
   ('0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y', 'f1a3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 567),
   ('1k2l3m4n-5o6p-7q8r-9s0t-1u2v3w4x5y6z', 'f1a3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 890),
   ('2l3m4n5o-6p7q-8r9s-0t1u-2v3w4x5y6z7a', 'f1a3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 2345),
   ('3m4n5o6p-7q8r-9s0t-1u2v-3w4x5y6z7a8b', 'a2b3c4d5-6f25-4d2c-8e3a-1a2b3c4d5e6f', 6789),
+  ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'a2b3c4d5-6f25-4d2c-8e3a-1a2b3c4d5e6f', 233),
   ('4n5o6p7q-8r9s-0t1u-2v3w-4x5y6z7a8b9c', 'a2b3c4d5-6f25-4d2c-8e3a-1a2b3c4d5e6f', 3456),
   ('5o6p7q8r-9s0t-1u2v-3w4x-5y6z7a8b9c0d', 'a2b3c4d5-6f25-4d2c-8e3a-1a2b3c4d5e6f', 8901),
   ('6p7q8r9s-0t1u-2v3w-4x5y-6z7a8b9c0d1e', 'b3c4d5e6-6f25-4d2c-8e3a-1a2b3c4d5e6f', 4567),
@@ -198,14 +201,18 @@ INSERT INTO products_distribuition_centers (pdc_prod_id, pdc_dist_cen_id, pdc_di
   ('9c0d1e2f-3g4h-5i6j-7k8l-9m0n1o2p3q4r', 'f7g8h9i0-6f25-4d2c-8e3a-1a2b3c4d5e6f', 678),
   ('0d1e2f3g-4h5i-6j7k-8l9m-0n1o2p3q4r5s', 'f7g8h9i0-6f25-4d2c-8e3a-1a2b3c4d5e6f', 3456),
   ('1e2f3g4h-5i6j-7k8l-9m0n-1o2p3q4r5s6t', 'g8h9i0j1-6f25-4d2c-8e3a-1a2b3c4d5e6f', 789),
+  ('2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q', 'g8h9i0j1-6f25-4d2c-8e3a-1a2b3c4d5e6f', 645),
   ('2f3g4h5i-6j7k-8l9m-0n1o-2p3q4r5s6t7u', 'g8h9i0j1-6f25-4d2c-8e3a-1a2b3c4d5e6f', 123),
   ('3g4h5i6j-7k8l-9m0n-1o2p-3q4r5s6t7u8v', 'g8h9i0j1-6f25-4d2c-8e3a-1a2b3c4d5e6f', 4567),
   ('4h5i6j7k-8l9m-0n1o-2p3q-4r5s6t7u8v9w', 'h9i0j1k2-6f25-4d2c-8e3a-1a2b3c4d5e6f', 8901),
   ('5i6j7k8l-9m0n-1o2p-3q4r-5s6t7u8v9w0x', 'h9i0j1k2-6f25-4d2c-8e3a-1a2b3c4d5e6f', 6789),
   ('6j7k8l9m-0n1o-2p3q-4r5s-6t7u8v9w0x1y', 'h9i0j1k2-6f25-4d2c-8e3a-1a2b3c4d5e6f', 234),
+  ('2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q', 'h9i0j1k2-6f25-4d2c-8e3a-1a2b3c4d5e6f', 345),
   ('7k8l9m0n-1o2p-3q4r-5s6t-7u8v9w0x1y2z', 'i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f', 567),
   ('8l9m0n1o-2p3q-4r5s-6t7u-8v9w0x1y2z3a', 'i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f', 890),
   ('9m0n1o2p-3q4r-5s6t-7u8v-9w0x1y2z3a4b', 'i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f', 1234),
+  ('1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p', 'i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f', 511),
+  ('2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q', 'i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f', 1234),
   ('0n1o2p3q-4r5s-6t7u-8v9w-0x1y2z3a4b5c', 'j1k2l3m4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 7890),
   ('1o2p3q4r-5s6t-7u8v-9w0x-1y2z3a4b5c6d', 'j1k2l3m4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 345),
   ('2p3q4r5s-6t7u-8v9w-0x1y-2z3a4b5c6d7e', 'j1k2l3m4-6f25-4d2c-8e3a-1a2b3c4d5e6f', 678),
@@ -214,9 +221,11 @@ INSERT INTO products_distribuition_centers (pdc_prod_id, pdc_dist_cen_id, pdc_di
   ('5s6t7u8v-9w0x-1y2z-3a4b-5c6d7e8f9g0h', 'k2l3m4n5-6f25-4d2c-8e3a-1a2b3c4d5e6f', 890),
   ('6t7u8v9w-0x1y-2z3a-4b5c-6d7e8f9g0h1i', 'l3m4n5o6-6f25-4d2c-8e3a-1a2b3c4d5e6f', 123),
   ('7u8v9w0x-1y2z-3a4b-5c6d-7e8f9g0h1i2j', 'l3m4n5o6-6f25-4d2c-8e3a-1a2b3c4d5e6f', 4567),
+  ('3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r', 'l3m4n5o6-6f25-4d2c-8e3a-1a2b3c4d5e6f', 4567),
   ('8v9w0x1y-2z3a-4b5c-6d7e-8f9g0h1i2j3k', 'l3m4n5o6-6f25-4d2c-8e3a-1a2b3c4d5e6f', 8901),
   ('9w0x1y2z-3a4b-5c6d-7e8f-9g0h1i2j3k4l', 'm4n5o6p7-6f25-4d2c-8e3a-1a2b3c4d5e6f', 1234),
   ('0x1y2z3a-4b5c-6d7e-8f9g-0h1i2j3k4l5m', 'm4n5o6p7-6f25-4d2c-8e3a-1a2b3c4d5e6f', 567),
+  ('3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r', 'm4n5o6p7-6f25-4d2c-8e3a-1a2b3c4d5e6f', 32),
   ('1y2z3a4b-5c6d-7e8f-9g0h-1i2j3k4l5m6n', 'm4n5o6p7-6f25-4d2c-8e3a-1a2b3c4d5e6f', 890),
   ('2z3a4b5c-6d7e-8f9g-0h1i-2j3k4l5m6n7o', 'n5o6p7q8-6f25-4d2c-8e3a-1a2b3c4d5e6f', 2345),
   ('3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p', 'n5o6p7q8-6f25-4d2c-8e3a-1a2b3c4d5e6f', 678),
