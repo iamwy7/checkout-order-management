@@ -51,37 +51,37 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 
     # Response
     {
-        "id": "59183153-e264-4642-ab38-9f459cff8b18", #Sempre um novo a cada request
-        "zone": "S1",
-        "state": "SP",
-        "status": "PENDING",
-        "created_at": "2025-04-08 06:54:37",
-        "updated_at": "2025-04-08 06:54:37",
-        "products": [
-            {
-                "id": "0f99276b-aa53-44f6-8bb6-5b4ededc9615",
-                "name": "Perfume Masculino",
-                "price": 175,
-                "quantity": 2,
-                "distribution_center": {
-                    "id": "66af3398-fd04-471f-aefc-a2280e7d02d3",
-                    "name": "CD1",
-                    "zone": "S1"
-                }
-            },
-            {
-                "id": "c60ce040-e2e4-4828-b959-a500996816b8",
-                "name": "Camisa Social",
-                "price": 200,
-                "quantity": 1,
-                "distribution_center": {
-                    "id": "c7f2d3e4-6a9f-1d8b-0c2a-4d3e5b2a7f6c",
-                    "name": "CD25",
-                    "zone": "C1"
-                }
-            }
-        ],
-        "products_count": 2
+    	"id": "510a8b7c-6663-4045-97f5-7b5358cbe5f9",
+    	"zone": "S1",
+    	"state": "SP",
+    	"status": "PENDING",
+    	"created_at": "2025-04-09 02:50:42.863679543 +0000 UTC m=+1027.497244589",
+    	"updated_at": "2025-04-09 02:50:42.863679594 +0000 UTC m=+1027.497244639",
+    	"products": [
+    		{
+    			"id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+    			"name": "Product Name 1",
+    			"price": 123.45,
+    			"quantity": 3,
+    			"distribution_center": {
+    				"id": "f1a3b8d4-6f25-4d2c-8e3a-1a2b3c4d5e6f",
+    				"name": "CD4",
+    				"zone": "S1"
+    			}
+    		},
+    		{
+    			"id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    			"name": "Product Name 2",
+    			"price": 456.78,
+    			"quantity": 5,
+    			"distribution_center": {
+    				"id": "i0j1k2l3-6f25-4d2c-8e3a-1a2b3c4d5e6f",
+    				"name": "CD13",
+    				"zone": "S2"
+    			}
+    		}
+    	],
+    	"products_count": 2
     }
 
     ```
