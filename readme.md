@@ -32,22 +32,22 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
     # Request
     {
         "products": [
-            {
-            "id": "0f99276b-aa53-44f6-8bb6-5b4ededc9615",
-            "name": "Perfume Masculino",
-            "price": 175.00,
-            "quantity": 2
-            },
-            {
-            "id": "c60ce040-e2e4-4828-b959-a500996816b8",
-            "name": "Camisa Social",
-            "price": 200.00,
-            "quantity": 1
-            }
+          {
+            "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+            "name": "Product Name 1",
+            "price": 123.45,
+            "quantity": 3
+          },
+          {
+            "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+            "name": "Product Name 2",
+            "price": 456.78,
+            "quantity": 5
+          }
         ],
         "zone": "S1",
         "state": "SP"
-    }
+      }
 
     # Response
     {
