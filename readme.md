@@ -1,6 +1,6 @@
 ## orders-distribution-centers-microservices
 
->Esse projeto é um desafio técnico onde precisamos de um serviço que receba pedidos com até 100 produtos, onde cada produto precisa ser consultada sua disponibilidade no serviço de centros de distribuição para que seja decidido de onde cada um será enviado. Assim, compondo essas informações nos produtos de um pedido.
+>Esse projeto é um desafio técnico onde precisamos de um serviço que receba pedidos com até 100 produtos, onde cada produto precisa ter sua disponibilidade consultada no serviço de centros de distribuição para que seja decidido de onde cada um será enviado. Assim, compondo essas informações nos produtos de um pedido.
 
 Tendo em vista que é um serviço que cria pedidos e também precisa consulta-los em outro momento, foi assim que fiz os principais pontos do teste:
 
