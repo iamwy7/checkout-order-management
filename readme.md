@@ -1,5 +1,7 @@
-## meli challenge
-### Olá caros reviewers do meu humilde código, cozinhei bastante coisa por aqui, deixa que eu resumo pra vocês :)
+## orders-distribution-centers-microservices
+
+>Esse projeto é um desafio técnico onde precisamos de um serviço que receba pedidos com até 100 produtos, onde cada produto precisa ser consultada sua disponibilidade no serviço de centros de distribuição para que seja decidido de onde cada um será enviado. Assim, compondo essas informações nos produtos de um pedido.
+
 Tendo em vista que é um serviço que cria pedidos e também precisa consulta-los em outro momento, foi assim que fiz os principais pontos do teste:
 
 ### Requisitos Funcionais do teste
@@ -185,11 +187,10 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
     ```
 
 ### Decisões tecnicas pessoais
-- [x] Usar a linguagem Go, por proximidade com o ecossistema do Meli e por gosto pela performance dela.
+- [x] Usar a linguagem Go por preferencia pela performance dela.
 - [x] Usar Hexagonal Architecture.
-    - [x] Temos Inversão de Controle.
-    - [x] Temos Injeção de Dependencia com as Interfaces entre domínio e adapters.
-    - [x] Temos Responsabilidades unicas pois cada jornada/capacidade da aplicação é contida em use cases.
+    - [x] Temos Inversão de Dependencia e Injeção de Dependencia com as Interfaces entre domínio e adapters.
+    - [x] Temos Responsabilidades unicas pois cada jornada/capacidade da aplicação é contida em use cases. E também cada entidade é autossuficiente e autocontida.
 - [x] Usei o [Swaggo/swag](https://github.com/swaggo/swag) para documentar a Api com Swagger, necessário para qualquer Dev/Parceiro que vá "consumir" a API.
 - [x] Docker para todo o ambiente, principal ferramenta pra facilitar na esteira de CI/CD e o próprio ambiente do Dev.
 - [x] Temos testes unitarios com um coverage mínimo.
@@ -208,10 +209,8 @@ Tendo em vista que é um serviço que cria pedidos e também precisa consulta-lo
 - Criar/Usar um serviço que valide os produtos, como um serviço de `catalog`. Manter a responsabilidade de produtos dentro do serviço de pedidos não é eficiente, pois o serviço de centros de distribuição também precisa manter essas informações atualizadas, levando a necessidade de mais um serviço na arquitetura.
 - Criar dentro de `orders` um worker que consulte se algum pedido foi feito pela metade, seja por algum erro de conexão com o banco no meio da transação, para que ele exclua pedidos, produtos ou centros de distribuição "orfãos". Mantendo a Atomicidade da transação, por mais que ela já aconteça de forma invertida.
 - Criei um parametro de State/Estado. Supondo que o negócio abra mais CDs em outros estados, pode ser um parametro de decisão também, além de saber qual CD tem mais daquele produto, dá pra pesquisar baseado em CDs que estejam em estados adjacentes ao informado no pedido. Por isso no Path da consulta tem um query parameter de `zone` e `state`.
-
-
-### Considerações finais
-Foi divertido, espero que tenha cobrido os requisitos e atingido as espectativas :)
+- Usar Go Routines para consultar paralelamente cada produto de um pedido no sistema de centros de distribuição.
+- Talvez remover o Cobra, pois só tem um comando útil, deixar de usar uma dependencia desnecessária, porque não?
 
 ## Obrigado!
 
