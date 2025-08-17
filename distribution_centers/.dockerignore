@@ -1,7 +1,0 @@
-# Custom
-.github
-.dockerignore
-.gitignore
-docker-compose.*
-Dockerfile
-test.http

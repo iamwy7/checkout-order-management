@@ -3,5 +3,6 @@ README.* @iamwy7
 LICENSE @iamwy7
 .github/ @iamwy7
 *.go @iamwy7
-distribution_centers/* @iamwy7
-orders/* @iamwy7
+docs/* @iamwy7
+internal/* @iamwy7
+cmd/* @iamwy7
